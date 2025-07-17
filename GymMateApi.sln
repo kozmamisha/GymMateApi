@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36301.6 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymMateApi", "GymMateApi\GymMateApi.csproj", "{C5B47E6A-9BC2-4766-87EB-8E7FD240AF15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymMateApi.Application", "GymMateApi.Application\GymMateApi.Application.csproj", "{2BC0BB40-591D-4FD8-9722-7F5C74942672}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymMateApi.Core", "GymMateApi.Core\GymMateApi.Core.csproj", "{BEA3426F-502A-4B59-A42D-D11521CA49C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymMateApi.Persistance", "GymMateApi.Persistance\GymMateApi.Persistance.csproj", "{0049F815-B031-4B72-A29E-D4BF8821E99E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymMateApi.Infrastructure", "GymMateApi.Infrastructure\GymMateApi.Infrastructure.csproj", "{B80AF1D1-0461-4C68-89E1-324968BEF367}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5B47E6A-9BC2-4766-87EB-8E7FD240AF15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5B47E6A-9BC2-4766-87EB-8E7FD240AF15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5B47E6A-9BC2-4766-87EB-8E7FD240AF15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5B47E6A-9BC2-4766-87EB-8E7FD240AF15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BC0BB40-591D-4FD8-9722-7F5C74942672}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BC0BB40-591D-4FD8-9722-7F5C74942672}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BC0BB40-591D-4FD8-9722-7F5C74942672}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BC0BB40-591D-4FD8-9722-7F5C74942672}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEA3426F-502A-4B59-A42D-D11521CA49C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEA3426F-502A-4B59-A42D-D11521CA49C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEA3426F-502A-4B59-A42D-D11521CA49C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEA3426F-502A-4B59-A42D-D11521CA49C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0049F815-B031-4B72-A29E-D4BF8821E99E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0049F815-B031-4B72-A29E-D4BF8821E99E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0049F815-B031-4B72-A29E-D4BF8821E99E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0049F815-B031-4B72-A29E-D4BF8821E99E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B80AF1D1-0461-4C68-89E1-324968BEF367}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B80AF1D1-0461-4C68-89E1-324968BEF367}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B80AF1D1-0461-4C68-89E1-324968BEF367}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B80AF1D1-0461-4C68-89E1-324968BEF367}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FA027B4F-9517-420B-A5BD-C8DA7551F74B}
+	EndGlobalSection
+EndGlobal
