@@ -10,4 +10,12 @@
     <Folder Include="Repositories\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GymMateApi.Core\GymMateApi.Core.csproj" />
+  </ItemGroup>
+
 </Project>
