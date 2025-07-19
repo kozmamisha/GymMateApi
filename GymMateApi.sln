@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36301.6 d17.14
+VisualStudioVersion = 17.14.36301.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymMateApi", "GymMateApi\GymMateApi.csproj", "{C5B47E6A-9BC2-4766-87EB-8E7FD240AF15}"
 EndProject
@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymMateApi.Application", "G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymMateApi.Core", "GymMateApi.Core\GymMateApi.Core.csproj", "{BEA3426F-502A-4B59-A42D-D11521CA49C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymMateApi.Persistance", "GymMateApi.Persistance\GymMateApi.Persistance.csproj", "{0049F815-B031-4B72-A29E-D4BF8821E99E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymMateApi.Persistence", "GymMateApi.Persistance\GymMateApi.Persistence.csproj", "{0049F815-B031-4B72-A29E-D4BF8821E99E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymMateApi.Infrastructure", "GymMateApi.Infrastructure\GymMateApi.Infrastructure.csproj", "{B80AF1D1-0461-4C68-89E1-324968BEF367}"
 EndProject
