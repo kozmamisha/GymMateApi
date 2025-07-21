@@ -1,4 +1,5 @@
-﻿using GymMateApi.Application.Exceptions;
+﻿using GymMateApi.Application.Dto;
+using GymMateApi.Application.Exceptions;
 using GymMateApi.Application.Interfaces;
 using GymMateApi.Core.Entities;
 using GymMateApi.Persistence.Interfaces;
@@ -10,11 +11,37 @@ using System.Threading.Tasks;
 
 namespace GymMateApi.Application.Services
 {
-    public class CommentService(ICommentRepository commentRepository) : ICommentService
+    public class CommentService(
+        ICommentRepository commentRepository, 
+        IUserRepository userRepository, 
+        ITrainingRepository trainingRepository) : ICommentService
     {
-        public Task CreateAsync(string text, Guid authorId, Guid trainingId)
+        public async Task<CommentDto> CreateAsync(string text, Guid authorId, Guid trainingId)
         {
-            throw new NotImplementedException();
+            var author = await userRepository.GetUserById(authorId)
+                ?? throw new EntityNotFoundException("Author not found");
+
+            var training = await trainingRepository.GetTrainingById(trainingId)
+                ?? throw new EntityNotFoundException("Training not found");
+
+            var comment = new CommentEntity
+            {
+                Text = text,
+                AuthorId = authorId,
+                Author = author,
+                TrainingId = trainingId,
+                Training = training,
+            };
+
+            await commentRepository.CreateComment(comment);
+
+            return new CommentDto
+            {
+                Text = text,
+                AuthorId = authorId,
+                AuthorName = author.UserName,
+                TrainingId = trainingId,
+            };
         }
 
         public async Task DeleteAsync(Guid id)
@@ -30,9 +57,19 @@ namespace GymMateApi.Application.Services
             return await commentRepository.GetAllComments();
         }
 
-        public Task UpdateAsync(Guid id, string text)
+        public async Task UpdateAsync(Guid id, string text)
         {
-            throw new NotImplementedException();
+            var currentComment = await commentRepository.GetCommentById(id)
+                ?? throw new EntityNotFoundException("Comment not found");
+
+            currentComment.Text = text;
+
+            if (currentComment.Text == string.Empty)
+            {
+                throw new BadRequestException("Text field can not be empty");
+            }
+
+            await commentRepository.UpdateComment(currentComment);
         }
     }
 }

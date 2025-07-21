@@ -3,6 +3,7 @@ using System;
 using GymMateApi.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GymMateApi.Persistence.Migrations
 {
     [DbContext(typeof(GymMateDbContext))]
-    partial class GymMateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250721114911_makeCourseOptionalForUser")]
+    partial class makeCourseOptionalForUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

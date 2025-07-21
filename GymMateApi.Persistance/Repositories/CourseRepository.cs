@@ -1,5 +1,7 @@
 ﻿using GymMateApi.Core.Entities;
+using GymMateApi.Persistance;
 using GymMateApi.Persistence.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,24 +12,43 @@ namespace GymMateApi.Persistence.Repositories
 {
     public class CourseRepository : ICourseRepository
     {
-        public Task CreateCourse(CourseEntity course)
+        private readonly GymMateDbContext _dbContext;
+        public CourseRepository(GymMateDbContext dbContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
         }
 
-        public Task DeleteCourse(CourseEntity course)
+        public async Task CreateCourse(CourseEntity course)
         {
-            throw new NotImplementedException();
+            await _dbContext.Courses.AddAsync(course);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<List<CourseEntity>> GetAllCourses()
+        public async Task DeleteCourse(CourseEntity course)
         {
-            throw new NotImplementedException();
+            _dbContext.Courses.Remove(course);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<CourseEntity?> GetCourseById(Guid id)
+        public async Task<List<CourseEntity>> GetAllCourses()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Courses
+                .AsNoTracking()
+                .OrderBy(c => c.Id)
+                .ToListAsync();
+        }
+
+        public async Task<CourseEntity?> GetCourseById(Guid id)
+        {
+            return await _dbContext.Courses
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        public async Task UpdateCourse(CourseEntity course)
+        {
+            _dbContext.Courses.Update(course);
+            await _dbContext.SaveChangesAsync();
         }
 
         public Task RateCourseAsync(Guid courseId, int rating)
@@ -41,11 +62,6 @@ namespace GymMateApi.Persistence.Repositories
         }
 
         public Task UnsubscribeAsync(Guid courseId, Guid userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateCourse(CourseEntity course)
         {
             throw new NotImplementedException();
         }

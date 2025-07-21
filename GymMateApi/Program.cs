@@ -1,3 +1,4 @@
+using GymMateApi.Application.Extensions;
 using GymMateApi.Persistance.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
@@ -8,6 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.AddPersistence(builder.Configuration);
+builder.Services.AddApplication();
 
 var app = builder.Build();
 

@@ -27,6 +27,7 @@ namespace GymMateApi.Middlewares
                 var (statusCode, message) = ex switch
                 {
                     EntityNotFoundException => (HttpStatusCode.NotFound, ex.Message),
+                    BadRequestException => (HttpStatusCode.BadRequest, ex.Message),
                     _ => (HttpStatusCode.InternalServerError, "An unexpected error occurred.")
                 };
 
