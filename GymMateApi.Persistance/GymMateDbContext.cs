@@ -11,11 +11,11 @@ namespace GymMateApi.Persistance
 {
     public class GymMateDbContext(DbContextOptions<GymMateDbContext> options) : DbContext(options)
     {
-        DbSet<CommentEntity> Comments { get; set; }
-        DbSet<CourseEntity> Courses { get; set; }
-        DbSet<ExerciseEntity> Exercises { get; set; }
-        DbSet<TrainingEntity> Trainings { get; set; }
-        DbSet<UserEntity> Users { get; set; }
+        public DbSet<CommentEntity> Comments { get; set; }
+        public DbSet<CourseEntity> Courses { get; set; }
+        public DbSet<ExerciseEntity> Exercises { get; set; }
+        public DbSet<TrainingEntity> Trainings { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

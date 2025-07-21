@@ -20,7 +20,7 @@ namespace GymMateApi.Persistance.Configurations
                 .IsRequired();
 
             builder
-                .HasMany(c => c.Users)
+                .HasMany(c => c.Subscribers)
                 .WithOne(e => e.Course)
                 .HasForeignKey(e => e.CourseId);
 

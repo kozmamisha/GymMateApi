@@ -33,7 +33,7 @@ namespace GymMateApi.Persistance.Configurations
 
             builder
                 .HasOne(u => u.Course)
-                .WithMany(c => c.Users)
+                .WithMany(c => c.Subscribers)
                 .HasForeignKey(u => u.CourseId);
         }
     }
