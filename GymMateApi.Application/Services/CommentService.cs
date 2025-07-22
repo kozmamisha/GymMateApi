@@ -59,15 +59,13 @@ namespace GymMateApi.Application.Services
 
         public async Task UpdateAsync(Guid id, string text)
         {
+            if (string.IsNullOrWhiteSpace(text))
+                throw new BadRequestException("Text field cannot be empty");
+
             var currentComment = await commentRepository.GetCommentById(id)
                 ?? throw new EntityNotFoundException("Comment not found");
 
             currentComment.Text = text;
-
-            if (currentComment.Text == string.Empty)
-            {
-                throw new BadRequestException("Text field can not be empty");
-            }
 
             await commentRepository.UpdateComment(currentComment);
         }
