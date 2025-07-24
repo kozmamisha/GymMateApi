@@ -29,7 +29,7 @@ namespace GymMateApi.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult> UpdateExercise([FromRoute] Guid id, [FromBody] string name, string description)
+        public async Task<ActionResult> UpdateExercise([FromRoute] Guid id, string name, string description)
         {
             await exerciseService.UpdateAsync(id, name, description);
             return NoContent();

@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GymMateApi.Application.Dto;
+using GymMateApi.Application.Extensions;
 
 namespace GymMateApi.Application.Services
 {
@@ -35,17 +37,19 @@ namespace GymMateApi.Application.Services
             await exerciseRepository.DeleteExercise(exercise);
         }
 
-        public async Task<List<ExerciseEntity>> GetAllAsync()
+        public async Task<List<ExerciseDto>> GetAllAsync()
         {
-            return await exerciseRepository.GetAllExercises();
+            var exercises = await exerciseRepository.GetAllExercises();
+
+            return exercises.ToDtoList();
         }
 
-        public async Task<ExerciseEntity?> GetByIdAsync(Guid id)
+        public async Task<ExerciseDto?> GetByIdAsync(Guid id)
         {
             var exercise = await exerciseRepository.GetExerciseById(id)
                 ?? throw new EntityNotFoundException("This exercise not found");
 
-            return exercise;
+            return exercise.ToDto();
         }
 
         public async Task UpdateAsync(Guid id, string name, string description)

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace GymMateApi.Application.Interfaces
 {
-    public interface IExerciseService
+    public interface ITrainingService
     {
-        Task<List<ExerciseDto>> GetAllAsync();
-        Task<ExerciseDto?> GetByIdAsync(Guid id);
-        Task CreateAsync(string name, string description, Guid trainingId);
+        Task<List<TrainingDto>> GetAllAsync();
+        Task<TrainingDto?> GetByIdAsync(Guid id);
+        Task CreateAsync(string name, string description);
         Task UpdateAsync(Guid id, string name, string description);
         Task DeleteAsync(Guid id);
     }

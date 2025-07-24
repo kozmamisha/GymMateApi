@@ -34,6 +34,8 @@ namespace GymMateApi.Persistence.Repositories
         {
             return await _dbContext.Trainings
                 .AsNoTracking()
+                .Include(t => t.Exercises)
+                //.Include(t => t.Comments)
                 .OrderBy(t => t.Id)
                 .ToListAsync();
         }
@@ -42,6 +44,8 @@ namespace GymMateApi.Persistence.Repositories
         {
             return await _dbContext.Trainings
                 .AsNoTracking()
+                .Include(t => t.Exercises)
+                //.Include(t => t.Comments)
                 .FirstOrDefaultAsync(t => t.Id == id);
         }
 

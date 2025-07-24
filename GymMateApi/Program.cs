@@ -1,6 +1,6 @@
 using GymMateApi.Application.Extensions;
+using GymMateApi.Middlewares;
 using GymMateApi.Persistance.Extensions;
-using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +12,8 @@ builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddApplication();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
