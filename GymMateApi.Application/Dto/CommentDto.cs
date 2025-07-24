@@ -14,6 +14,5 @@ namespace GymMateApi.Application.Dto
         public Guid AuthorId { get; set; }
         public string AuthorName { get; set; } = string.Empty;
 
-        public Guid TrainingId { get; set; }
     }
 }
