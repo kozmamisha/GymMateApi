@@ -10,8 +10,8 @@ namespace GymMateApi.Application.Interfaces
 {
     public interface ICommentService
     {
-        Task<List<CommentEntity>> GetAllAsync();
-        Task<CommentDto> CreateAsync(string text, Guid authorId, Guid trainingId);
+        Task<List<CommentDto>> GetAllAsync();
+        Task CreateAsync(string text, Guid authorId, Guid trainingId);
         Task UpdateAsync(Guid id, string text);
         Task DeleteAsync(Guid id);
     }

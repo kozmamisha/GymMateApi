@@ -13,7 +13,7 @@ namespace GymMateApi.Core.Entities
         public DateTime CreatedAt { get; set; }
 
         public Guid AuthorId { get; set; }
-        public UserEntity Author { get; set; } = null!;
+        public UserEntity? Author { get; set; }
 
         public Guid TrainingId { get; set; }
         public TrainingEntity? Training { get; set; }

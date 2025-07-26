@@ -13,9 +13,9 @@ namespace GymMateApi.Application.Dto
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        //public ICollection<CommentEntity> Comments { get; set; } = [];
+        public ICollection<CommentDto> Comments { get; set; } = [];
 
         public ICollection<ExerciseDto> Exercises { get; set; } = [];
-        //public ICollection<CourseEntity> Courses { get; set; } = [];
+        public ICollection<CourseDto> Courses { get; set; } = [];
     }
 }

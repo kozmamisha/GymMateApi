@@ -3,11 +3,7 @@ using GymMateApi.Application.Exceptions;
 using GymMateApi.Application.Interfaces;
 using GymMateApi.Core.Entities;
 using GymMateApi.Persistence.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GymMateApi.Application.Extensions;
 
 namespace GymMateApi.Application.Services
 {
@@ -16,7 +12,7 @@ namespace GymMateApi.Application.Services
         IUserRepository userRepository, 
         ITrainingRepository trainingRepository) : ICommentService
     {
-        public async Task<CommentDto> CreateAsync(string text, Guid authorId, Guid trainingId)
+        public async Task CreateAsync(string text, Guid authorId, Guid trainingId)
         {
             var author = await userRepository.GetUserById(authorId)
                 ?? throw new EntityNotFoundException("Author not found");
@@ -24,24 +20,13 @@ namespace GymMateApi.Application.Services
             var training = await trainingRepository.GetTrainingById(trainingId)
                 ?? throw new EntityNotFoundException("Training not found");
 
-            var comment = new CommentEntity
+            CommentEntity comment = new()
             {
                 Text = text,
                 AuthorId = authorId,
-                Author = author,
-                TrainingId = trainingId,
-                Training = training,
             };
 
             await commentRepository.CreateComment(comment);
-
-            return new CommentDto
-            {
-                Text = text,
-                AuthorId = authorId,
-                AuthorName = author.UserName,
-                TrainingId = trainingId,
-            };
         }
 
         public async Task DeleteAsync(Guid id)
@@ -52,9 +37,11 @@ namespace GymMateApi.Application.Services
             await commentRepository.DeleteComment(comment);
         }
 
-        public async Task<List<CommentEntity>> GetAllAsync()
+        public async Task<List<CommentDto>> GetAllAsync()
         {
-            return await commentRepository.GetAllComments();
+            var comments = await commentRepository.GetAllComments();
+
+            return comments.ToDtoList();
         }
 
         public async Task UpdateAsync(Guid id, string text)

@@ -23,13 +23,18 @@ namespace GymMateApi.Application.Extensions
                     Name = e.Name,
                     Description = e.Description
                 }).ToList(),
-                //Comments = training.Comments.Select(c => new CommentDto
-                //{
-                //    Id = c.Id,
-                //    Text = c.Text,
-                //    AuthorId = c.AuthorId,
-                //    CreatedAt = c.CreatedAt
-                //}).ToList()
+                Comments = training.Comments.Select(c => new CommentDto
+                {
+                    Id = c.Id,
+                    Text = c.Text,
+                    AuthorId = c.AuthorId,
+                    CreatedAt = c.CreatedAt
+                }).ToList(),
+                Courses = training.Courses.Select(c => new CourseDto
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                }).ToList(),
             };
         }
 

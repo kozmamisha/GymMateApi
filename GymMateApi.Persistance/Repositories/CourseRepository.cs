@@ -51,7 +51,16 @@ namespace GymMateApi.Persistence.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public Task RateCourseAsync(Guid courseId, int rating)
+        public async Task RateCourseAsync(Guid courseId, int rating)
+        {
+            var course = await GetCourseById(courseId);
+            
+            course.Rating.Add(rating);
+            
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public Task AddTrainingToCourse(Guid courseId, Guid trainingId)
         {
             throw new NotImplementedException();
         }

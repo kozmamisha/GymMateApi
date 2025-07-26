@@ -10,7 +10,7 @@ namespace GymMateApi.Core.Entities
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public int[] Rating { get; set; } = [];
+        public List<int> Rating { get; set; } = [];
 
         public ICollection<UserEntity> Subscribers { get; set; } = [];
         public ICollection<TrainingEntity> Trainings { get; set; } = [];

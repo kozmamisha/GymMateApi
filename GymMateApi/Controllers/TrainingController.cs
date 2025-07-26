@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GymMateApi.Controllers
 {
     [ApiController]
-    [Route("api/training")]
+    [Route("api/trainings")]
     public class TrainingController(ITrainingService trainingService) : ControllerBase
     {
         [HttpPost("create")]
@@ -14,7 +14,7 @@ namespace GymMateApi.Controllers
             return Ok();
         }
 
-        [HttpGet("trainings")]
+        [HttpGet()]
         public async Task<ActionResult> GetAllTrainings()
         {
             var trainings = await trainingService.GetAllAsync();

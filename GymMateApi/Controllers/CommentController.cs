@@ -4,17 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 namespace GymMateApi.Controllers
 {
     [ApiController]
-    [Route("api/comment")]
+    [Route("api/comments")]
     public class CommentController(ICommentService commentService) : ControllerBase
     {
         [HttpPost("create")]
         public async Task<ActionResult> CreateComment(string text, Guid authorId, Guid trainingId)
         {
-            var result = await commentService.CreateAsync(text, authorId, trainingId);
-            return Ok(result);
+            await commentService.CreateAsync(text, authorId, trainingId);
+            return Ok();
         }
 
-        [HttpGet("comments")]
+        [HttpGet()]
         public async Task<ActionResult> GetAllComments()
         {
             var comments = await commentService.GetAllAsync();
