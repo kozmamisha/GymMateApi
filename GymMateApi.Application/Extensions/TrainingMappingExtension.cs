@@ -30,11 +30,6 @@ namespace GymMateApi.Application.Extensions
                     AuthorId = c.AuthorId,
                     CreatedAt = c.CreatedAt
                 }).ToList(),
-                Courses = training.Courses.Select(c => new CourseDto
-                {
-                    Id = c.Id,
-                    Name = c.Name,
-                }).ToList(),
             };
         }
 

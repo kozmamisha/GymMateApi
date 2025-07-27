@@ -14,6 +14,24 @@ public class CourseController(ICourseService courseService) : ControllerBase
         return Ok();
     }
 
+    [HttpPost("add-training")]
+    public async Task<ActionResult> AddTrainingToCourseAsync(
+        [FromQuery] Guid courseId,
+        [FromQuery] Guid trainingId)
+    {
+        await courseService.AddTrainingToCourseAsync(courseId, trainingId);
+        return Ok();
+    }    
+    
+    [HttpDelete("remove-training")]
+    public async Task<ActionResult> RemoveTrainingFromCourseAsync(
+        [FromQuery] Guid courseId,
+        [FromQuery] Guid trainingId)
+    {
+        await courseService.RemoveTrainingFromCourseAsync(courseId, trainingId);
+        return NoContent();
+    }
+
     [HttpGet()]
     public async Task<ActionResult> GetAllCourses()
     {

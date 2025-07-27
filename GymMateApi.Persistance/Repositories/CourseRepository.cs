@@ -34,6 +34,7 @@ namespace GymMateApi.Persistence.Repositories
         {
             return await _dbContext.Courses
                 .AsNoTracking()
+                .Include(t => t.Trainings)
                 .OrderBy(c => c.Id)
                 .ToListAsync();
         }
@@ -42,6 +43,7 @@ namespace GymMateApi.Persistence.Repositories
         {
             return await _dbContext.Courses
                 .AsNoTracking()
+                .Include(t => t.Trainings)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
@@ -60,9 +62,22 @@ namespace GymMateApi.Persistence.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public Task AddTrainingToCourse(Guid courseId, Guid trainingId)
+        public async Task AddTrainingToCourse(Guid courseId, Guid trainingId)
         {
-            throw new NotImplementedException();
+            var course = await _dbContext.Courses.FindAsync(courseId);
+            var training = await _dbContext.Trainings.FindAsync(trainingId);
+            
+            course.Trainings.Add(training);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task RemoveTrainingFromCourse(Guid courseId, Guid trainingId)
+        {
+            var course = await _dbContext.Courses.FindAsync(courseId);
+            var training = await _dbContext.Trainings.FindAsync(trainingId);
+            
+            course.Trainings.Remove(training);
+            await _dbContext.SaveChangesAsync();
         }
 
         public Task SubscribeAsync(Guid courseId, Guid userId)

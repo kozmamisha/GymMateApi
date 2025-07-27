@@ -7,5 +7,5 @@ public class CourseDto
     public int[] Rating { get; set; } = [];
 
 //    public ICollection<UserDto> Subscribers { get; set; } = [];
-    public ICollection<TrainingDto> Trainings { get; set; } = [];
+    public ICollection<CourseTrainingDto> Trainings { get; set; } = [];
 }

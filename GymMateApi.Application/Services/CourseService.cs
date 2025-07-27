@@ -7,7 +7,9 @@ using GymMateApi.Persistence.Interfaces;
 
 namespace GymMateApi.Application.Services;
 
-public class CourseService(ICourseRepository courseRepository) : ICourseService
+public class CourseService(
+    ICourseRepository courseRepository, 
+    ITrainingRepository trainingRepository) : ICourseService
 {
     public async Task<List<CourseDto>> GetAllAsync()
     {
@@ -53,5 +55,31 @@ public class CourseService(ICourseRepository courseRepository) : ICourseService
                      ?? throw new EntityNotFoundException("Course not found");
         
         await courseRepository.DeleteCourse(course);
+    }
+
+    public async Task AddTrainingToCourseAsync(Guid courseId, Guid trainingId)
+    {
+        var course = await courseRepository.GetCourseById(courseId) 
+                     ?? throw new EntityNotFoundException("Course not found");
+        
+        var training = await trainingRepository.GetTrainingById(trainingId) 
+                     ?? throw new EntityNotFoundException("Training not found");
+        
+        var trainingAlreadyAdded = course.Trainings.Any(t => t.Id == trainingId);
+        if (trainingAlreadyAdded)
+            throw new BadRequestException("This training is already added to this course");
+
+        await courseRepository.AddTrainingToCourse(courseId, trainingId);
+    }    
+    
+    public async Task RemoveTrainingFromCourseAsync(Guid courseId, Guid trainingId)
+    {
+        var course = await courseRepository.GetCourseById(courseId) 
+                     ?? throw new EntityNotFoundException("Course not found");
+
+        var training = await trainingRepository.GetTrainingById(trainingId)
+                       ?? throw new EntityNotFoundException("Training not found");
+
+        await courseRepository.RemoveTrainingFromCourse(courseId, trainingId);
     }
 }

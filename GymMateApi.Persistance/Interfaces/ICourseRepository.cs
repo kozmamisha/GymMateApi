@@ -18,5 +18,6 @@ namespace GymMateApi.Persistence.Interfaces
         Task UnsubscribeAsync(Guid courseId, Guid userId);
         Task RateCourseAsync(Guid courseId, int rating);
         Task AddTrainingToCourse(Guid courseId, Guid trainingId);
+        Task RemoveTrainingFromCourse(Guid courseId, Guid trainingId);
     }
 }

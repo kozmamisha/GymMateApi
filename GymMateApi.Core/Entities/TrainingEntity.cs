@@ -15,6 +15,6 @@ namespace GymMateApi.Core.Entities
         public ICollection<CommentEntity> Comments { get; set; } = [];
 
         public ICollection<ExerciseEntity> Exercises { get; set; } = [];
-        public ICollection<CourseEntity> Courses { get; set; } = [];
+        public ICollection<CourseEntity> Courses { get; set; } = new List<CourseEntity>();
     }
 }

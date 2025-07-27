@@ -13,6 +13,6 @@ namespace GymMateApi.Core.Entities
         public List<int> Rating { get; set; } = [];
 
         public ICollection<UserEntity> Subscribers { get; set; } = [];
-        public ICollection<TrainingEntity> Trainings { get; set; } = [];
+        public ICollection<TrainingEntity> Trainings { get; set; } = new List<TrainingEntity>();
     }
 }

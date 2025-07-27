@@ -9,4 +9,6 @@ public interface ICourseService
     Task CreateAsync(string name);
     Task UpdateAsync(Guid id, string name);
     Task DeleteAsync(Guid id);
+    Task AddTrainingToCourseAsync(Guid courseId, Guid trainingId);
+    Task RemoveTrainingFromCourseAsync(Guid courseId, Guid trainingId);
 }

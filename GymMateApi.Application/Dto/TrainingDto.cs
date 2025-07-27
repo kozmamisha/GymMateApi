@@ -16,6 +16,5 @@ namespace GymMateApi.Application.Dto
         public ICollection<CommentDto> Comments { get; set; } = [];
 
         public ICollection<ExerciseDto> Exercises { get; set; } = [];
-        public ICollection<CourseDto> Courses { get; set; } = [];
     }
 }
