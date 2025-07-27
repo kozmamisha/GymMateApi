@@ -40,7 +40,16 @@ namespace GymMateApi.Persistence.Repositories
              .OrderBy(a => a.Id)
              .ToListAsync();
         }
-
+        
+        public async Task<List<CommentEntity>> GetCommentsByPage(int page, int pageSize)
+        {
+            return await _dbContext.Comments
+                .AsNoTracking()
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+        }
+        
         public async Task<CommentEntity?> GetCommentById(Guid id)
         {
             return await _dbContext.Comments

@@ -10,6 +10,7 @@ namespace GymMateApi.Persistence.Interfaces
     public interface ICommentRepository
     {
         Task<List<CommentEntity>> GetAllComments();
+        Task<List<CommentEntity>> GetCommentsByPage(int page, int pageSize);
         Task<CommentEntity?> GetCommentById(Guid id);
         Task CreateComment(CommentEntity comment);
         Task UpdateComment(CommentEntity comment);

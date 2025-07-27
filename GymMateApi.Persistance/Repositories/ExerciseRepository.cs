@@ -44,6 +44,15 @@ namespace GymMateApi.Persistence.Repositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync(e => e.Id == id);
         }
+        
+        public async Task<List<ExerciseEntity>> GetExercisesByPage(int page, int pageSize)
+        {
+            return await _dbContext.Exercises
+                .AsNoTracking()
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+        }
 
         public async Task UpdateExercise(ExerciseEntity exercise)
         {

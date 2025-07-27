@@ -20,6 +20,13 @@ namespace GymMateApi.Controllers
             var exercises = await exerciseService.GetAllAsync();
             return Ok(exercises);
         }
+        
+        [HttpGet("pagination")]
+        public async Task<ActionResult> GetExercisesByPage([FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var exercises = await exerciseService.GetByPage(page, pageSize);
+            return Ok(exercises);
+        }
 
         [HttpGet("{id:guid}")]
         public async Task<ActionResult> GetOneExercise([FromRoute] Guid id)

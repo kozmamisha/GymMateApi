@@ -19,6 +19,13 @@ namespace GymMateApi.Controllers
         {
             var comments = await commentService.GetAllAsync();
             return Ok(comments);
+        }        
+        
+        [HttpGet("pagination")]
+        public async Task<ActionResult> GetCommentsByPage([FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var comments = await commentService.GetByPageAsync(page, pageSize);
+            return Ok(comments);
         }
 
         [HttpPut("{id:guid}")]

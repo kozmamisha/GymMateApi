@@ -43,6 +43,13 @@ namespace GymMateApi.Application.Services
 
             return comments.ToDtoList();
         }
+        
+        public async Task<List<CommentDto>> GetByPageAsync(int page, int pageSize)
+        {
+            var comments = await commentRepository.GetCommentsByPage(page, pageSize);
+
+            return comments.ToDtoList();
+        }
 
         public async Task UpdateAsync(Guid id, string text)
         {

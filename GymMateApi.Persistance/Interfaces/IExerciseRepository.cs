@@ -11,6 +11,7 @@ namespace GymMateApi.Persistence.Interfaces
     {
         Task<List<ExerciseEntity>> GetAllExercises();
         Task<ExerciseEntity?> GetExerciseById(Guid id);
+        Task<List<ExerciseEntity>> GetExercisesByPage(int page, int pageSize);
         Task CreateExercise(ExerciseEntity exercise);
         Task UpdateExercise(ExerciseEntity exercise);
         Task DeleteExercise(ExerciseEntity exercise);

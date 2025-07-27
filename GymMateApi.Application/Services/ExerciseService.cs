@@ -12,7 +12,9 @@ using GymMateApi.Application.Extensions;
 
 namespace GymMateApi.Application.Services
 {
-    public class ExerciseService(IExerciseRepository exerciseRepository, ITrainingRepository trainingRepository) : IExerciseService
+    public class ExerciseService(
+        IExerciseRepository exerciseRepository,
+        ITrainingRepository trainingRepository) : IExerciseService
     {
         public async Task CreateAsync(string name, string description, Guid trainingId)
         {
@@ -40,6 +42,13 @@ namespace GymMateApi.Application.Services
         public async Task<List<ExerciseDto>> GetAllAsync()
         {
             var exercises = await exerciseRepository.GetAllExercises();
+
+            return exercises.ToDtoList();
+        }
+
+        public async Task<List<ExerciseDto>> GetByPage(int page, int pageSize)
+        {
+            var exercises = await exerciseRepository.GetExercisesByPage(page, pageSize);
 
             return exercises.ToDtoList();
         }
