@@ -21,7 +21,7 @@ public class CourseController(ICourseService courseService) : ControllerBase
     {
         await courseService.AddTrainingToCourseAsync(courseId, trainingId);
         return Ok();
-    }    
+    }
     
     [HttpDelete("remove-training")]
     public async Task<ActionResult> RemoveTrainingFromCourseAsync(
@@ -30,6 +30,13 @@ public class CourseController(ICourseService courseService) : ControllerBase
     {
         await courseService.RemoveTrainingFromCourseAsync(courseId, trainingId);
         return NoContent();
+    }
+
+    [HttpPost("{id:guid}/rate")]
+    public async Task<ActionResult> RateCourseAsync([FromRoute] Guid id, [FromBody] int rating)
+    {
+        await courseService.RateCourseAsync(id, rating);
+        return Ok();
     }
 
     [HttpGet()]
@@ -44,6 +51,13 @@ public class CourseController(ICourseService courseService) : ControllerBase
     {
         var course = await courseService.GetByIdAsync(id);
         return Ok(course);
+    }
+
+    [HttpGet("filtered")]
+    public async Task<ActionResult> GetCoursesByRatingFilter([FromQuery] int rating)
+    {
+        var courses = await courseService.GetCoursesByRatingFilterAsync(rating);
+        return Ok(courses);
     }
 
     [HttpPut("{id:guid}")]

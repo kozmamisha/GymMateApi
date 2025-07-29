@@ -11,6 +11,7 @@ public static class CourseMappingExtension
         {
             Id = course.Id,
             Name = course.Name,
+            AverageRating = course.AverageRating,
             Trainings = course.Trainings.Select(e => new CourseTrainingDto()
             {
                 Id = e.Id,

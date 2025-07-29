@@ -11,4 +11,6 @@ public interface ICourseService
     Task DeleteAsync(Guid id);
     Task AddTrainingToCourseAsync(Guid courseId, Guid trainingId);
     Task RemoveTrainingFromCourseAsync(Guid courseId, Guid trainingId);
+    Task RateCourseAsync(Guid courseId, int rating);
+    Task<List<CourseDto>> GetCoursesByRatingFilterAsync(int rating);
 }

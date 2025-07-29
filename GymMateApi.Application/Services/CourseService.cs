@@ -79,7 +79,32 @@ public class CourseService(
 
         var training = await trainingRepository.GetTrainingById(trainingId)
                        ?? throw new EntityNotFoundException("Training not found");
+        
+        var trainingNotFound = course.Trainings.Any(t => t.Id == trainingId);
+        if (!trainingNotFound)
+            throw new EntityNotFoundException("There is no this training in this course");
 
         await courseRepository.RemoveTrainingFromCourse(courseId, trainingId);
+    }
+
+    public async Task RateCourseAsync(Guid courseId, int rating)
+    {
+        var course = await courseRepository.GetCourseById(courseId) 
+                     ?? throw new EntityNotFoundException("Course not found");
+        
+        if (rating < 1 || rating > 5)
+            throw new BadRequestException("Rating must be between 1 and 5.");
+        
+        await courseRepository.RateCourse(courseId, rating);
+    }
+
+    public async Task<List<CourseDto>> GetCoursesByRatingFilterAsync(int rating)
+    {
+        if (rating < 1 || rating > 5)
+            throw new BadRequestException("Rating must be between 1 and 5.");
+
+        var filteredCourses = await courseRepository.GetCoursesByRatingFilter(rating);
+        
+        return filteredCourses.ToDtoList();
     }
 }

@@ -47,17 +47,29 @@ namespace GymMateApi.Persistence.Repositories
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
+        public async Task<List<CourseEntity>> GetCoursesByRatingFilter(int rating)
+        {
+            var courses = await _dbContext.Courses
+                .AsNoTracking()
+                .Include(t => t.Trainings)
+                .ToListAsync();
+
+            var filteredCourses = courses.Where(c => c.AverageRating > rating);
+            
+            return filteredCourses.ToList();
+        }
+
         public async Task UpdateCourse(CourseEntity course)
         {
             _dbContext.Courses.Update(course);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task RateCourseAsync(Guid courseId, int rating)
+        public async Task RateCourse(Guid courseId, int rating)
         {
-            var course = await GetCourseById(courseId);
+            var course = await _dbContext.Courses.FindAsync(courseId);
             
-            course.Rating.Add(rating);
+            course.Ratings.Add(rating);
             
             await _dbContext.SaveChangesAsync();
         }
@@ -73,7 +85,10 @@ namespace GymMateApi.Persistence.Repositories
 
         public async Task RemoveTrainingFromCourse(Guid courseId, Guid trainingId)
         {
-            var course = await _dbContext.Courses.FindAsync(courseId);
+            var course = await _dbContext.Courses
+                .Include(c => c.Trainings)
+                .FirstOrDefaultAsync(c => c.Id == courseId);
+            
             var training = await _dbContext.Trainings.FindAsync(trainingId);
             
             course.Trainings.Remove(training);
