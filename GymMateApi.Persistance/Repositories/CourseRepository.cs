@@ -10,97 +10,105 @@ using System.Threading.Tasks;
 
 namespace GymMateApi.Persistence.Repositories
 {
-    public class CourseRepository : ICourseRepository
+    public class CourseRepository(GymMateDbContext dbContext) : ICourseRepository
     {
-        private readonly GymMateDbContext _dbContext;
-        public CourseRepository(GymMateDbContext dbContext)
+        public async Task CreateCourse(CourseEntity course, CancellationToken cancellationToken)
         {
-            _dbContext = dbContext;
+            await dbContext.Courses.AddAsync(course, cancellationToken);
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task CreateCourse(CourseEntity course)
+        public async Task DeleteCourse(CourseEntity course, CancellationToken cancellationToken)
         {
-            await _dbContext.Courses.AddAsync(course);
-            await _dbContext.SaveChangesAsync();
+            dbContext.Courses.Remove(course);
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteCourse(CourseEntity course)
+        public async Task<List<CourseEntity>> GetAllCourses(CancellationToken cancellationToken)
         {
-            _dbContext.Courses.Remove(course);
-            await _dbContext.SaveChangesAsync();
-        }
-
-        public async Task<List<CourseEntity>> GetAllCourses()
-        {
-            return await _dbContext.Courses
+            return await dbContext.Courses
                 .AsNoTracking()
                 .Include(t => t.Trainings)
                 .OrderBy(c => c.Id)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<CourseEntity?> GetCourseById(Guid id)
+        public async Task<CourseEntity?> GetCourseById(Guid id, CancellationToken cancellationToken)
         {
-            return await _dbContext.Courses
+            return await dbContext.Courses
                 .AsNoTracking()
                 .Include(t => t.Trainings)
-                .FirstOrDefaultAsync(c => c.Id == id);
+                .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
         }
 
-        public async Task<List<CourseEntity>> GetCoursesByRatingFilter(int rating)
+        public async Task<List<CourseEntity>> GetCoursesByRatingFilter(int rating, CancellationToken cancellationToken)
         {
-            var courses = await _dbContext.Courses
+            var courses = await dbContext.Courses
                 .AsNoTracking()
                 .Include(t => t.Trainings)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             var filteredCourses = courses.Where(c => c.AverageRating > rating);
             
             return filteredCourses.ToList();
         }
 
-        public async Task UpdateCourse(CourseEntity course)
+        public async Task<List<CourseEntity>> GetCoursesSortedByRating(bool isDescending, CancellationToken cancellationToken)
         {
-            _dbContext.Courses.Update(course);
-            await _dbContext.SaveChangesAsync();
+            var courses = await dbContext.Courses
+                .AsNoTracking()
+                .Include(t => t.Trainings)
+                .ToListAsync(cancellationToken);
+
+            var sortedCourses = isDescending
+                ? courses.OrderByDescending(x => x.AverageRating)
+                : courses.OrderBy(x => x.AverageRating);
+
+            return sortedCourses.ToList();
         }
 
-        public async Task RateCourse(Guid courseId, int rating)
+        public async Task UpdateCourse(CourseEntity course, CancellationToken cancellationToken)
         {
-            var course = await _dbContext.Courses.FindAsync(courseId);
+            dbContext.Courses.Update(course);
+            await dbContext.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task RateCourse(Guid courseId, int rating, CancellationToken cancellationToken)
+        {
+            var course = await dbContext.Courses.FindAsync(courseId, cancellationToken);
             
             course.Ratings.Add(rating);
             
-            await _dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task AddTrainingToCourse(Guid courseId, Guid trainingId)
+        public async Task AddTrainingToCourse(Guid courseId, Guid trainingId, CancellationToken cancellationToken)
         {
-            var course = await _dbContext.Courses.FindAsync(courseId);
-            var training = await _dbContext.Trainings.FindAsync(trainingId);
+            var course = await dbContext.Courses.FindAsync(courseId, cancellationToken);
+            var training = await dbContext.Trainings.FindAsync(trainingId, cancellationToken);
             
             course.Trainings.Add(training);
-            await _dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task RemoveTrainingFromCourse(Guid courseId, Guid trainingId)
+        public async Task RemoveTrainingFromCourse(Guid courseId, Guid trainingId, CancellationToken cancellationToken)
         {
-            var course = await _dbContext.Courses
+            var course = await dbContext.Courses
                 .Include(c => c.Trainings)
-                .FirstOrDefaultAsync(c => c.Id == courseId);
+                .FirstOrDefaultAsync(c => c.Id == courseId, cancellationToken);
             
-            var training = await _dbContext.Trainings.FindAsync(trainingId);
+            var training = await dbContext.Trainings.FindAsync(trainingId);
             
             course.Trainings.Remove(training);
-            await _dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public Task SubscribeAsync(Guid courseId, Guid userId)
+        public Task SubscribeAsync(Guid courseId, Guid userId, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public Task UnsubscribeAsync(Guid courseId, Guid userId)
+        public Task UnsubscribeAsync(Guid courseId, Guid userId, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

@@ -10,10 +10,10 @@ namespace GymMateApi.Application.Interfaces
 {
     public interface ITrainingService
     {
-        Task<List<TrainingDto>> GetAllAsync();
-        Task<TrainingDto?> GetByIdAsync(Guid id);
-        Task CreateAsync(string name, string description);
-        Task UpdateAsync(Guid id, string name, string description);
-        Task DeleteAsync(Guid id);
+        Task<List<TrainingDto>> GetAllAsync(CancellationToken cancellationToken);
+        Task<TrainingDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+        Task CreateAsync(string name, string description, CancellationToken cancellationToken);
+        Task UpdateAsync(Guid id, string name, string description, CancellationToken cancellationToken);
+        Task DeleteAsync(Guid id, CancellationToken cancellationToken);
     }
 }

@@ -2,57 +2,46 @@
 using GymMateApi.Persistance;
 using GymMateApi.Persistence.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GymMateApi.Persistence.Repositories
 {
-    public class TrainingRepository : ITrainingRepository
+    public class TrainingRepository(GymMateDbContext dbContext) : ITrainingRepository
     {
-        private readonly GymMateDbContext _dbContext;
-        public TrainingRepository(GymMateDbContext dbContext)
+        public async Task CreateTraining(TrainingEntity training, CancellationToken cancellationToken)
         {
-            _dbContext = dbContext;
+            await dbContext.Trainings.AddAsync(training, cancellationToken);
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task CreateTraining(TrainingEntity training)
+        public async Task DeleteTraining(TrainingEntity training, CancellationToken cancellationToken)
         {
-            await _dbContext.Trainings.AddAsync(training);
-            await _dbContext.SaveChangesAsync();
+            dbContext.Trainings.Remove(training);
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteTraining(TrainingEntity training)
+        public async Task<List<TrainingEntity>> GetAllTrainings(CancellationToken cancellationToken)
         {
-            _dbContext.Trainings.Remove(training);
-            await _dbContext.SaveChangesAsync();
-        }
-
-        public async Task<List<TrainingEntity>> GetAllTrainings()
-        {
-            return await _dbContext.Trainings
+            return await dbContext.Trainings
                 .AsNoTracking()
                 .Include(t => t.Exercises)
                 .Include(t => t.Comments)
                 .OrderBy(t => t.Id)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<TrainingEntity?> GetTrainingById(Guid id)
+        public async Task<TrainingEntity?> GetTrainingById(Guid id, CancellationToken cancellationToken)
         {
-            return await _dbContext.Trainings
+            return await dbContext.Trainings
                 .AsNoTracking()
                 .Include(t => t.Exercises)
                 .Include(t => t.Comments)
-                .FirstOrDefaultAsync(t => t.Id == id);
+                .FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
         }
 
-        public async Task UpdateTraining(TrainingEntity training)
+        public async Task UpdateTraining(TrainingEntity training, CancellationToken cancellationToken)
         {
-            _dbContext.Trainings.Update(training);
-            await _dbContext.SaveChangesAsync();
+            dbContext.Trainings.Update(training);
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

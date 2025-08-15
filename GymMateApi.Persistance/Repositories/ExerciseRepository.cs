@@ -10,54 +10,48 @@ using System.Threading.Tasks;
 
 namespace GymMateApi.Persistence.Repositories
 {
-    public class ExerciseRepository : IExerciseRepository
+    public class ExerciseRepository(GymMateDbContext dbContext) : IExerciseRepository
     {
-        private readonly GymMateDbContext _dbContext;
-        public ExerciseRepository(GymMateDbContext dbContext)
+        public async Task CreateExercise(ExerciseEntity exercise, CancellationToken cancellationToken)
         {
-            _dbContext = dbContext;
+            await dbContext.Exercises.AddAsync(exercise, cancellationToken);
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task CreateExercise(ExerciseEntity exercise)
+        public async Task DeleteExercise(ExerciseEntity exercise, CancellationToken cancellationToken)
         {
-            await _dbContext.Exercises.AddAsync(exercise);
-            await _dbContext.SaveChangesAsync();
+            dbContext.Exercises.Remove(exercise);
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteExercise(ExerciseEntity exercise)
+        public async Task<List<ExerciseEntity>> GetAllExercises(CancellationToken cancellationToken)
         {
-            _dbContext.Exercises.Remove(exercise);
-            await _dbContext.SaveChangesAsync();
-        }
-
-        public async Task<List<ExerciseEntity>> GetAllExercises()
-        {
-            return await _dbContext.Exercises
+            return await dbContext.Exercises
                 .AsNoTracking()
                 .OrderBy(e => e.Id)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<ExerciseEntity?> GetExerciseById(Guid id)
+        public async Task<ExerciseEntity?> GetExerciseById(Guid id, CancellationToken cancellationToken)
         {
-            return await _dbContext.Exercises
+            return await dbContext.Exercises
                 .AsNoTracking()
-                .FirstOrDefaultAsync(e => e.Id == id);
+                .FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
         }
         
-        public async Task<List<ExerciseEntity>> GetExercisesByPage(int page, int pageSize)
+        public async Task<List<ExerciseEntity>> GetExercisesByPage(int page, int pageSize, CancellationToken cancellationToken)
         {
-            return await _dbContext.Exercises
+            return await dbContext.Exercises
                 .AsNoTracking()
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task UpdateExercise(ExerciseEntity exercise)
+        public async Task UpdateExercise(ExerciseEntity exercise, CancellationToken cancellationToken)
         {
-            _dbContext.Exercises.Update(exercise);
-            await _dbContext.SaveChangesAsync();
+            dbContext.Exercises.Update(exercise);
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

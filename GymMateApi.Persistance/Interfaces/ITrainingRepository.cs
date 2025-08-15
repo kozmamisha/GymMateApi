@@ -9,10 +9,10 @@ namespace GymMateApi.Persistence.Interfaces
 {
     public interface ITrainingRepository
     {
-        Task<List<TrainingEntity>> GetAllTrainings();
-        Task<TrainingEntity?> GetTrainingById(Guid id);
-        Task CreateTraining(TrainingEntity training);
-        Task UpdateTraining(TrainingEntity training);
-        Task DeleteTraining(TrainingEntity training);
+        Task<List<TrainingEntity>> GetAllTrainings(CancellationToken cancellationToken);
+        Task<TrainingEntity?> GetTrainingById(Guid id, CancellationToken cancellationToken);
+        Task CreateTraining(TrainingEntity training, CancellationToken cancellationToken);
+        Task UpdateTraining(TrainingEntity training, CancellationToken cancellationToken);
+        Task DeleteTraining(TrainingEntity training, CancellationToken cancellationToken);
     }
 }

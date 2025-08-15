@@ -10,14 +10,8 @@ using System.Threading.Tasks;
 
 namespace GymMateApi.Persistence.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository(GymMateDbContext dbContext) : IUserRepository
     {
-        private readonly GymMateDbContext _dbContext;
-        public UserRepository(GymMateDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
-
         public Task Add(UserEntity user)
         {
             throw new NotImplementedException();
@@ -25,14 +19,14 @@ namespace GymMateApi.Persistence.Repositories
 
         public async Task<UserEntity?> GetByEmail(string email)
         {
-            return await _dbContext.Users
+            return await dbContext.Users
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Email == email);
         }
 
         public async Task<UserEntity?> GetUserById(Guid id)
         {
-            return await _dbContext.Users
+            return await dbContext.Users
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Id == id);
         }

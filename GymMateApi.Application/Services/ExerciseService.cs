@@ -16,9 +16,9 @@ namespace GymMateApi.Application.Services
         IExerciseRepository exerciseRepository,
         ITrainingRepository trainingRepository) : IExerciseService
     {
-        public async Task CreateAsync(string name, string description, Guid trainingId)
+        public async Task CreateAsync(string name, string description, Guid trainingId, CancellationToken cancellationToken)
         {
-            var training = await trainingRepository.GetTrainingById(trainingId)
+            var training = await trainingRepository.GetTrainingById(trainingId, cancellationToken)
                 ?? throw new EntityNotFoundException("Training not found");
 
             ExerciseEntity exercise = new()
@@ -28,40 +28,40 @@ namespace GymMateApi.Application.Services
                 TrainingId = trainingId
             };
 
-            await exerciseRepository.CreateExercise(exercise);
+            await exerciseRepository.CreateExercise(exercise, cancellationToken);
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
-            var exercise = await exerciseRepository.GetExerciseById(id)
+            var exercise = await exerciseRepository.GetExerciseById(id, cancellationToken)
                 ?? throw new EntityNotFoundException("This exercise not found");
 
-            await exerciseRepository.DeleteExercise(exercise);
+            await exerciseRepository.DeleteExercise(exercise, cancellationToken);
         }
 
-        public async Task<List<ExerciseDto>> GetAllAsync()
+        public async Task<List<ExerciseDto>> GetAllAsync(CancellationToken cancellationToken)
         {
-            var exercises = await exerciseRepository.GetAllExercises();
+            var exercises = await exerciseRepository.GetAllExercises(cancellationToken);
 
             return exercises.ToDtoList();
         }
 
-        public async Task<List<ExerciseDto>> GetByPage(int page, int pageSize)
+        public async Task<List<ExerciseDto>> GetByPage(int page, int pageSize, CancellationToken cancellationToken)
         {
-            var exercises = await exerciseRepository.GetExercisesByPage(page, pageSize);
+            var exercises = await exerciseRepository.GetExercisesByPage(page, pageSize, cancellationToken);
 
             return exercises.ToDtoList();
         }
 
-        public async Task<ExerciseDto?> GetByIdAsync(Guid id)
+        public async Task<ExerciseDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            var exercise = await exerciseRepository.GetExerciseById(id)
+            var exercise = await exerciseRepository.GetExerciseById(id, cancellationToken)
                 ?? throw new EntityNotFoundException("This exercise not found");
 
             return exercise.ToDto();
         }
 
-        public async Task UpdateAsync(Guid id, string name, string description)
+        public async Task UpdateAsync(Guid id, string name, string description, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new BadRequestException("Exercise name cannot be empty");
@@ -69,13 +69,13 @@ namespace GymMateApi.Application.Services
             if (string.IsNullOrWhiteSpace(description))
                 throw new BadRequestException("Exercise description cannot be empty");
 
-            var currentExercise = await exerciseRepository.GetExerciseById(id)
+            var currentExercise = await exerciseRepository.GetExerciseById(id, cancellationToken)
                 ?? throw new EntityNotFoundException("This exercise not found");
 
             currentExercise.Name = name;
             currentExercise.Description = description;
 
-            await exerciseRepository.UpdateExercise(currentExercise);
+            await exerciseRepository.UpdateExercise(currentExercise, cancellationToken);
         }
     }
 }

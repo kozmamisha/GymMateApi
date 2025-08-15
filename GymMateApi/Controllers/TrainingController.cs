@@ -1,4 +1,5 @@
 ﻿using GymMateApi.Application.Interfaces;
+using GymMateApi.Contracts.Training;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymMateApi.Controllers
@@ -7,38 +8,38 @@ namespace GymMateApi.Controllers
     [Route("api/trainings")]
     public class TrainingController(ITrainingService trainingService) : ControllerBase
     {
-        [HttpPost("create")]
-        public async Task<ActionResult> CreateTraining(string name, string description)
+        [HttpPost]
+        public async Task<ActionResult> CreateTraining([FromBody] TrainingUpsertRequest request, CancellationToken cancellationToken)
         {
-            await trainingService.CreateAsync(name, description);
+            await trainingService.CreateAsync(request.Name, request.Description, cancellationToken);
             return Ok();
         }
 
         [HttpGet()]
-        public async Task<ActionResult> GetAllTrainings()
+        public async Task<ActionResult> GetAllTrainings(CancellationToken cancellationToken)
         {
-            var trainings = await trainingService.GetAllAsync();
+            var trainings = await trainingService.GetAllAsync(cancellationToken);
             return Ok(trainings);
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult> GetOneTraining([FromRoute] Guid id)
+        public async Task<ActionResult> GetOneTraining([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            var training = await trainingService.GetByIdAsync(id);
+            var training = await trainingService.GetByIdAsync(id, cancellationToken);
             return Ok(training);
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult> UpdateTraining([FromRoute] Guid id, string name, string description)
+        public async Task<ActionResult> UpdateTraining([FromRoute] Guid id, [FromBody] TrainingUpsertRequest request, CancellationToken cancellationToken)
         {
-            await trainingService.UpdateAsync(id, name, description);
+            await trainingService.UpdateAsync(id, request.Name, request.Description, cancellationToken);
             return NoContent();
         }
 
         [HttpDelete("{id:guid}")]
-        public async Task<ActionResult> DeleteTraining([FromRoute] Guid id)
+        public async Task<ActionResult> DeleteTraining([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            await trainingService.DeleteAsync(id);
+            await trainingService.DeleteAsync(id, cancellationToken);
             return NoContent();
         }
     }

@@ -4,13 +4,14 @@ namespace GymMateApi.Application.Interfaces;
 
 public interface ICourseService
 {
-    Task<List<CourseDto>> GetAllAsync();
-    Task<CourseDto?> GetByIdAsync(Guid id);
-    Task CreateAsync(string name);
-    Task UpdateAsync(Guid id, string name);
-    Task DeleteAsync(Guid id);
-    Task AddTrainingToCourseAsync(Guid courseId, Guid trainingId);
-    Task RemoveTrainingFromCourseAsync(Guid courseId, Guid trainingId);
-    Task RateCourseAsync(Guid courseId, int rating);
-    Task<List<CourseDto>> GetCoursesByRatingFilterAsync(int rating);
+    Task<List<CourseDto>> GetAllAsync(CancellationToken cancellationToken);
+    Task<CourseDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+    Task CreateAsync(string name, CancellationToken cancellationToken);
+    Task UpdateAsync(Guid id, string name, CancellationToken cancellationToken);
+    Task DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task AddTrainingToCourseAsync(Guid courseId, Guid trainingId, CancellationToken cancellationToken);
+    Task RemoveTrainingFromCourseAsync(Guid courseId, Guid trainingId, CancellationToken cancellationToken);
+    Task RateCourseAsync(Guid courseId, int rating, CancellationToken cancellationToken);
+    Task<List<CourseDto>> GetCoursesByRatingFilterAsync(int rating, CancellationToken cancellationToken);
+    Task<List<CourseDto>> GetCoursesSortedByRatingAsync(bool isDescending, CancellationToken cancellationToken);
 }

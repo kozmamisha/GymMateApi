@@ -10,57 +10,50 @@ using System.Threading.Tasks;
 
 namespace GymMateApi.Persistence.Repositories
 {
-    public class CommentRepository : ICommentRepository
+    public class CommentRepository(GymMateDbContext dbContext) : ICommentRepository
     {
-        private readonly GymMateDbContext _dbContext;
-
-        public CommentRepository(GymMateDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
-
-        public async Task CreateComment(CommentEntity comment)
+        public async Task CreateComment(CommentEntity comment, CancellationToken cancellationToken)
         {
             comment.CreatedAt = DateTime.UtcNow;
 
-            await _dbContext.Comments.AddAsync(comment);
-            await _dbContext.SaveChangesAsync();
+            await dbContext.Comments.AddAsync(comment, cancellationToken);
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteComment(CommentEntity comment)
+        public async Task DeleteComment(CommentEntity comment, CancellationToken cancellationToken)
         {
-            _dbContext.Comments.Remove(comment);
-            await _dbContext.SaveChangesAsync();
+            dbContext.Comments.Remove(comment);
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<List<CommentEntity>> GetAllComments()
+        public async Task<List<CommentEntity>> GetAllComments(CancellationToken cancellationToken)
         {
-            return await _dbContext.Comments
+            return await dbContext.Comments
              .AsNoTracking()
              .OrderBy(a => a.Id)
-             .ToListAsync();
+             .ToListAsync(cancellationToken);
         }
         
-        public async Task<List<CommentEntity>> GetCommentsByPage(int page, int pageSize)
+        public async Task<List<CommentEntity>> GetCommentsByPage(int page, int pageSize, CancellationToken cancellationToken)
         {
-            return await _dbContext.Comments
+            return await dbContext.Comments
                 .AsNoTracking()
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
         
-        public async Task<CommentEntity?> GetCommentById(Guid id)
+        public async Task<CommentEntity?> GetCommentById(Guid id, CancellationToken cancellationToken)
         {
-            return await _dbContext.Comments
+            return await dbContext.Comments
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
         }
 
-        public async Task UpdateComment(CommentEntity comment)
+        public async Task UpdateComment(CommentEntity comment, CancellationToken cancellationToken)
         {
-            _dbContext.Comments.Update(comment);
-            await _dbContext.SaveChangesAsync();
+            dbContext.Comments.Update(comment);
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }
