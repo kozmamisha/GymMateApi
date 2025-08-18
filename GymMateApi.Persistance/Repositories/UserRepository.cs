@@ -12,9 +12,22 @@ namespace GymMateApi.Persistence.Repositories
 {
     public class UserRepository(GymMateDbContext dbContext) : IUserRepository
     {
-        public Task Add(UserEntity user)
+        public async Task Add(UserEntity user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            await dbContext.Users.AddAsync(user, cancellationToken);
+            await dbContext.SaveChangesAsync(cancellationToken);
+        }
+        
+        public async Task Update(UserEntity user, CancellationToken cancellationToken)
+        {
+            dbContext.Users.Update(user);
+            await dbContext.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task Delete(UserEntity user, CancellationToken cancellationToken)
+        {
+            dbContext.Users.Remove(user);
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
 
         public async Task<UserEntity?> GetByEmail(string email)

@@ -17,6 +17,7 @@ namespace GymMateApi.Application.Extensions
             serviceCollection.AddScoped<IExerciseService, ExerciseService>();
             serviceCollection.AddScoped<ITrainingService, TrainingService>();
             serviceCollection.AddScoped<ICourseService, CourseService>();
+            serviceCollection.AddScoped<IUserService, UserService>();
 
             return serviceCollection;
         }
