@@ -27,4 +27,13 @@ public class UserController(IUserService userService, IOptions<AuthOptions> opti
 
         return Created();
     }
+
+    [HttpPost("logout")]
+    public ActionResult Logout()
+    {
+        HttpContext.Response.Cookies.Delete(options.Value.CookieName);
+
+        return NoContent();
+    }
+    
 }

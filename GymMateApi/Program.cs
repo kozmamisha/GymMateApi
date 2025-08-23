@@ -18,7 +18,6 @@ builder.Services.Configure<AuthOptions>(builder.Configuration.GetSection("Auth")
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
-
 builder.Services.AddApiAuthentication(builder.Configuration);
 
 var app = builder.Build();

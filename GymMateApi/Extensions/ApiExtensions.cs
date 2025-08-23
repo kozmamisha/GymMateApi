@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using GymMateApi.Infrastructure.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace GymMateApi.Extensions
@@ -28,7 +29,14 @@ namespace GymMateApi.Extensions
                     {
                         OnMessageReceived = context =>
                         {
-                            context.Token = context.Request.Cookies["tasty-cookie"]; // rewrite
+                            var authOptions = context.HttpContext
+                                .RequestServices
+                                .GetRequiredService<IOptions<AuthOptions>>()
+                                .Value;
+                            
+                            var cookieName = authOptions.CookieName;
+                            
+                            context.Token = context.Request.Cookies[cookieName];
 
                             return Task.CompletedTask;
                         }

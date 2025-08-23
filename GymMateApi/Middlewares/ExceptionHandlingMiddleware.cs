@@ -28,6 +28,7 @@ namespace GymMateApi.Middlewares
                 {
                     EntityNotFoundException => (HttpStatusCode.NotFound, ex.Message),
                     BadRequestException => (HttpStatusCode.BadRequest, ex.Message),
+                    UnauthorizedAccessException => (HttpStatusCode.Unauthorized, ex.Message),
                     _ => (HttpStatusCode.InternalServerError, "An unexpected error occurred.")
                 };
 
