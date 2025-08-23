@@ -1,6 +1,7 @@
 ﻿using GymMateApi.Application.Interfaces;
 using GymMateApi.Contracts.User;
 using GymMateApi.Infrastructure.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -29,11 +30,22 @@ public class UserController(IUserService userService, IOptions<AuthOptions> opti
     }
 
     [HttpPost("logout")]
+    [Authorize]
     public ActionResult Logout()
     {
         HttpContext.Response.Cookies.Delete(options.Value.CookieName);
 
         return NoContent();
     }
-    
+
+    [HttpDelete("{id:guid}")]
+    [Authorize]
+    public async Task<ActionResult> DeleteUser([FromRoute] Guid id, CancellationToken cancellationToken)
+    {
+        await userService.DeleteAsync(id, cancellationToken);
+        
+        HttpContext.Response.Cookies.Delete(options.Value.CookieName);
+        
+        return NoContent();
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using GymMateApi.Application.Interfaces;
 using GymMateApi.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymMateApi.Controllers
@@ -9,13 +10,15 @@ namespace GymMateApi.Controllers
     public class CommentController(ICommentService commentService) : ControllerBase
     {
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult> CreateComment([FromBody] CreateCommentRequest request, CancellationToken cancellationToken)
         {
-            await commentService.CreateAsync(request.Text, request.AuthorId, request.TrainingId, cancellationToken);
+            await commentService.CreateAsync(request.Text, request.TrainingId, cancellationToken);
             return Ok();
         }
 
         [HttpGet()]
+        [Authorize]
         public async Task<ActionResult> GetAllComments(CancellationToken cancellationToken)
         {
             var comments = await commentService.GetAllAsync(cancellationToken);
@@ -23,6 +26,7 @@ namespace GymMateApi.Controllers
         }        
         
         [HttpGet("pagination")]
+        [Authorize]
         public async Task<ActionResult> GetCommentsByPage([FromQuery] int page, [FromQuery] int pageSize, CancellationToken cancellationToken)
         {
             var comments = await commentService.GetByPageAsync(page, pageSize, cancellationToken);
@@ -30,6 +34,7 @@ namespace GymMateApi.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [Authorize]
         public async Task<ActionResult> UpdateComment([FromRoute] Guid id, [FromBody] UpdateCommentRequest request, CancellationToken cancellationToken)
         {
             await commentService.UpdateAsync(id, request.Text, cancellationToken);
@@ -37,6 +42,7 @@ namespace GymMateApi.Controllers
         }
 
         [HttpDelete("{id:guid}")]
+        [Authorize]
         public async Task<ActionResult> DeleteComment([FromRoute] Guid id, CancellationToken cancellationToken)
         {
             await commentService.DeleteAsync(id, cancellationToken);

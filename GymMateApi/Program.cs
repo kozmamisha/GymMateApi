@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(JwtOptions)));
 builder.Services.Configure<AuthOptions>(builder.Configuration.GetSection("Auth"));
@@ -39,8 +40,8 @@ app.UseCookiePolicy(new CookiePolicyOptions
     HttpOnly = HttpOnlyPolicy.Always,
 });
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

@@ -25,12 +25,6 @@ namespace GymMateApi.Persistence.Repositories
             await dbContext.Users.AddAsync(newUser, cancellationToken);
             await dbContext.SaveChangesAsync(cancellationToken);
         }
-        
-        public async Task Update(UserEntity user, CancellationToken cancellationToken)
-        {
-            dbContext.Users.Update(user);
-            await dbContext.SaveChangesAsync(cancellationToken);
-        }
 
         public async Task Delete(UserEntity user, CancellationToken cancellationToken)
         {

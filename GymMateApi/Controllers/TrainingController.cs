@@ -1,5 +1,6 @@
 ﻿using GymMateApi.Application.Interfaces;
 using GymMateApi.Contracts.Training;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymMateApi.Controllers
@@ -9,6 +10,7 @@ namespace GymMateApi.Controllers
     public class TrainingController(ITrainingService trainingService) : ControllerBase
     {
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> CreateTraining([FromBody] TrainingUpsertRequest request, CancellationToken cancellationToken)
         {
             await trainingService.CreateAsync(request.Name, request.Description, cancellationToken);
@@ -16,6 +18,7 @@ namespace GymMateApi.Controllers
         }
 
         [HttpGet()]
+        [Authorize]
         public async Task<ActionResult> GetAllTrainings(CancellationToken cancellationToken)
         {
             var trainings = await trainingService.GetAllAsync(cancellationToken);
@@ -23,6 +26,7 @@ namespace GymMateApi.Controllers
         }
 
         [HttpGet("{id:guid}")]
+        [Authorize]
         public async Task<ActionResult> GetOneTraining([FromRoute] Guid id, CancellationToken cancellationToken)
         {
             var training = await trainingService.GetByIdAsync(id, cancellationToken);
@@ -30,6 +34,7 @@ namespace GymMateApi.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> UpdateTraining([FromRoute] Guid id, [FromBody] TrainingUpsertRequest request, CancellationToken cancellationToken)
         {
             await trainingService.UpdateAsync(id, request.Name, request.Description, cancellationToken);
@@ -37,6 +42,7 @@ namespace GymMateApi.Controllers
         }
 
         [HttpDelete("{id:guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteTraining([FromRoute] Guid id, CancellationToken cancellationToken)
         {
             await trainingService.DeleteAsync(id, cancellationToken);

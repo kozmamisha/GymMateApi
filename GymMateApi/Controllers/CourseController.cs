@@ -1,5 +1,6 @@
 ﻿using GymMateApi.Application.Interfaces;
 using GymMateApi.Contracts.Course;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymMateApi.Controllers;
@@ -9,6 +10,7 @@ namespace GymMateApi.Controllers;
 public class CourseController(ICourseService courseService) : ControllerBase
 {
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> CreateCourse([FromBody] CourseUpsertRequest request, CancellationToken cancellationToken)
     {
         await courseService.CreateAsync(request.Name, cancellationToken);
@@ -16,6 +18,7 @@ public class CourseController(ICourseService courseService) : ControllerBase
     }
 
     [HttpPost("{courseId:guid}/trainings")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> AddTrainingToCourseAsync(
         [FromRoute] Guid courseId,
         [FromBody] CourseTrainingRequest request,
@@ -26,6 +29,7 @@ public class CourseController(ICourseService courseService) : ControllerBase
     }
     
     [HttpDelete("{courseId:guid}/trainings")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> RemoveTrainingFromCourseAsync(
         [FromRoute] Guid courseId,
         [FromBody] CourseTrainingRequest request,
@@ -36,6 +40,7 @@ public class CourseController(ICourseService courseService) : ControllerBase
     }
 
     [HttpPost("{id:guid}/rate")]
+    [Authorize]
     public async Task<ActionResult> RateCourseAsync([FromRoute] Guid id, [FromBody] int rating, CancellationToken cancellationToken)
     {
         await courseService.RateCourseAsync(id, rating, cancellationToken);
@@ -43,6 +48,7 @@ public class CourseController(ICourseService courseService) : ControllerBase
     }
 
     [HttpGet()]
+    [Authorize]
     public async Task<ActionResult> GetAllCourses(CancellationToken cancellationToken)
     {
         var courses = await courseService.GetAllAsync(cancellationToken);
@@ -50,6 +56,7 @@ public class CourseController(ICourseService courseService) : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
+    [Authorize]
     public async Task<ActionResult> GetOneCourse([FromRoute] Guid id, CancellationToken cancellationToken)
     {
         var course = await courseService.GetByIdAsync(id, cancellationToken);
@@ -57,6 +64,7 @@ public class CourseController(ICourseService courseService) : ControllerBase
     }
 
     [HttpGet("filtered")]
+    [Authorize]
     public async Task<ActionResult> GetCoursesByRatingFilter([FromQuery] int rating, CancellationToken cancellationToken)
     {
         var courses = await courseService.GetCoursesByRatingFilterAsync(rating, cancellationToken);
@@ -64,6 +72,7 @@ public class CourseController(ICourseService courseService) : ControllerBase
     }    
     
     [HttpGet("sorted")]
+    [Authorize]
     public async Task<ActionResult> GetCoursesSortedByRating([FromQuery] bool isDescending, CancellationToken cancellationToken)
     {
         var courses = await courseService.GetCoursesSortedByRatingAsync(isDescending, cancellationToken);
@@ -71,6 +80,7 @@ public class CourseController(ICourseService courseService) : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> UpdateCourse([FromRoute] Guid id, [FromBody] CourseUpsertRequest request, CancellationToken cancellationToken)
     {
         await courseService.UpdateAsync(id, request.Name, cancellationToken);
@@ -78,6 +88,7 @@ public class CourseController(ICourseService courseService) : ControllerBase
     }
 
     [HttpDelete("{id:guid}")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> DeleteCourse([FromRoute] Guid id, CancellationToken cancellationToken)
     {
         await courseService.DeleteAsync(id, cancellationToken);

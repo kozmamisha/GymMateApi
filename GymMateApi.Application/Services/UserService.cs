@@ -1,18 +1,25 @@
-﻿using GymMateApi.Application.Dto;
+﻿using System.Security.Claims;
+using GymMateApi.Application.Dto;
 using GymMateApi.Application.Exceptions;
 using GymMateApi.Application.Interfaces;
 using GymMateApi.Core.Entities;
 using GymMateApi.Infrastructure;
+using GymMateApi.Infrastructure.Auth;
 using GymMateApi.Infrastructure.Interfaces.Auth;
 using GymMateApi.Persistence.Interfaces;
+using Microsoft.AspNetCore.Http;
 
 namespace GymMateApi.Application.Services;
 
 public class UserService(
     IPasswordHasher passwordHasher, 
     IUserRepository userRepository,
-    IJwtProvider jwtProvider) : IUserService
+    IJwtProvider jwtProvider,
+    IHttpContextAccessor httpContextAccessor) : IUserService
 {
+    private Guid CurrentUserId => Guid.Parse(
+        httpContextAccessor.HttpContext!.User.FindFirstValue(CustomClaims.UserId)!);
+    
     public async Task Register(string userName, string email, string password, CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(userName))
@@ -65,5 +72,20 @@ public class UserService(
         var token = jwtProvider.GenerateToken(user);
 
         return token;
+    }
+
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
+    {
+        if (CurrentUserId != id)
+        {
+            throw new BadRequestException("You can not delete other user");
+        }
+        
+        var user = await userRepository.GetUserById(id, cancellationToken);
+        
+        if (user == null)
+            throw new EntityNotFoundException("User not found.");
+
+        await userRepository.Delete(user, cancellationToken);
     }
 }

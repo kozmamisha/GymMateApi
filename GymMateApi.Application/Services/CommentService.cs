@@ -1,29 +1,34 @@
-﻿using GymMateApi.Application.Dto;
+﻿using System.Security.Claims;
+using GymMateApi.Application.Dto;
 using GymMateApi.Application.Exceptions;
 using GymMateApi.Application.Interfaces;
 using GymMateApi.Core.Entities;
 using GymMateApi.Persistence.Interfaces;
 using GymMateApi.Application.Extensions;
+using GymMateApi.Infrastructure.Auth;
+using Microsoft.AspNetCore.Http;
 
 namespace GymMateApi.Application.Services
 {
     public class CommentService(
         ICommentRepository commentRepository, 
         IUserRepository userRepository, 
-        ITrainingRepository trainingRepository) : ICommentService
+        ITrainingRepository trainingRepository,
+        IHttpContextAccessor httpContextAccessor) : ICommentService
     {
-        public async Task CreateAsync(string text, Guid authorId, Guid trainingId, CancellationToken cancellationToken)
+        private Guid CurrentUserId => Guid.Parse(
+            httpContextAccessor.HttpContext!.User.FindFirstValue(CustomClaims.UserId)!);
+        
+        public async Task CreateAsync(string text, Guid trainingId, CancellationToken cancellationToken)
         {
-            var author = await userRepository.GetUserById(authorId, cancellationToken)
-                ?? throw new EntityNotFoundException("Author not found");
-
             var training = await trainingRepository.GetTrainingById(trainingId, cancellationToken)
                 ?? throw new EntityNotFoundException("Training not found");
 
             CommentEntity comment = new()
             {
                 Text = text,
-                AuthorId = authorId,
+                AuthorId = CurrentUserId,
+                TrainingId = training.Id
             };
 
             await commentRepository.CreateComment(comment, cancellationToken);
@@ -33,6 +38,11 @@ namespace GymMateApi.Application.Services
         {
             var comment = await commentRepository.GetCommentById(id, cancellationToken)
                 ?? throw new EntityNotFoundException("Comment not found");
+            
+            if (CurrentUserId != comment.AuthorId)
+            {
+                throw new BadRequestException("You can not delete other person's comment");
+            }
 
             await commentRepository.DeleteComment(comment, cancellationToken);
         }
@@ -58,6 +68,11 @@ namespace GymMateApi.Application.Services
 
             var currentComment = await commentRepository.GetCommentById(id, cancellationToken)
                 ?? throw new EntityNotFoundException("Comment not found");
+            
+            if (CurrentUserId != currentComment.AuthorId)
+            {
+                throw new BadRequestException("You can not update other person's comment");
+            }
 
             currentComment.Text = text;
 
