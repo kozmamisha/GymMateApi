@@ -1,15 +1,11 @@
-﻿using GymMateApi.Persistence.Interfaces;
+﻿using GymMateApi.Persistance;
+using GymMateApi.Persistence.Interfaces;
 using GymMateApi.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GymMateApi.Persistance.Extensions
+namespace GymMateApi.Persistence.Extensions
 {
     public static class PersistenceExtensions
     {

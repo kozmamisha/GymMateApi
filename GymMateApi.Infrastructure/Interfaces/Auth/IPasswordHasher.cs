@@ -1,4 +1,4 @@
-﻿namespace GymMateApi.Infrastructure;
+﻿namespace GymMateApi.Infrastructure.Interfaces.Auth;
 
 public interface IPasswordHasher
 {

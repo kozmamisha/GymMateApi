@@ -14,7 +14,15 @@ namespace GymMateApi.Persistence.Repositories
     {
         public async Task Add(UserEntity user, CancellationToken cancellationToken)
         {
-            await dbContext.Users.AddAsync(user, cancellationToken);
+            var newUser = new UserEntity()
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                PasswordHash = user.PasswordHash,
+                Email = user.Email,
+            };
+            
+            await dbContext.Users.AddAsync(newUser, cancellationToken);
             await dbContext.SaveChangesAsync(cancellationToken);
         }
         
@@ -30,18 +38,18 @@ namespace GymMateApi.Persistence.Repositories
             await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<UserEntity?> GetByEmail(string email)
+        public async Task<UserEntity?> GetByEmail(string email, CancellationToken cancellationToken)
         {
             return await dbContext.Users
                 .AsNoTracking()
-                .FirstOrDefaultAsync(u => u.Email == email);
+                .FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
         }
 
-        public async Task<UserEntity?> GetUserById(Guid id)
+        public async Task<UserEntity?> GetUserById(Guid id, CancellationToken cancellationToken)
         {
             return await dbContext.Users
                 .AsNoTracking()
-                .FirstOrDefaultAsync(u => u.Id == id);
+                .FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
         }
     }
 }

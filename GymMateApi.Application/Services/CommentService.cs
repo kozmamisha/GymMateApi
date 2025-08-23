@@ -14,7 +14,7 @@ namespace GymMateApi.Application.Services
     {
         public async Task CreateAsync(string text, Guid authorId, Guid trainingId, CancellationToken cancellationToken)
         {
-            var author = await userRepository.GetUserById(authorId)
+            var author = await userRepository.GetUserById(authorId, cancellationToken)
                 ?? throw new EntityNotFoundException("Author not found");
 
             var training = await trainingRepository.GetTrainingById(trainingId, cancellationToken)
