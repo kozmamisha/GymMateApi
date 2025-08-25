@@ -12,9 +12,9 @@ namespace GymMateApi.Core.Entities
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        public ICollection<CommentEntity> Comments { get; set; } = [];
+        public ICollection<CommentEntity> Comments { get; set; } = new List<CommentEntity>();
 
-        public ICollection<ExerciseEntity> Exercises { get; set; } = [];
+        public ICollection<ExerciseEntity> Exercises { get; set; } = new List<ExerciseEntity>();
         public ICollection<CourseEntity> Courses { get; set; } = new List<CourseEntity>();
     }
 }

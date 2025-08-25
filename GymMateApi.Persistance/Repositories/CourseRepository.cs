@@ -2,11 +2,6 @@
 using GymMateApi.Persistance;
 using GymMateApi.Persistence.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GymMateApi.Persistence.Repositories
 {
@@ -29,6 +24,7 @@ namespace GymMateApi.Persistence.Repositories
             return await dbContext.Courses
                 .AsNoTracking()
                 .Include(t => t.Trainings)
+                .Include(s => s.Subscribers)
                 .OrderBy(c => c.Id)
                 .ToListAsync(cancellationToken);
         }
@@ -38,6 +34,7 @@ namespace GymMateApi.Persistence.Repositories
             return await dbContext.Courses
                 .AsNoTracking()
                 .Include(t => t.Trainings)
+                .Include(s => s.Subscribers)
                 .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
         }
 
@@ -46,6 +43,7 @@ namespace GymMateApi.Persistence.Repositories
             var courses = await dbContext.Courses
                 .AsNoTracking()
                 .Include(t => t.Trainings)
+                .Include(s => s.Subscribers)
                 .ToListAsync(cancellationToken);
 
             var filteredCourses = courses.Where(c => c.AverageRating > rating);
@@ -58,6 +56,7 @@ namespace GymMateApi.Persistence.Repositories
             var courses = await dbContext.Courses
                 .AsNoTracking()
                 .Include(t => t.Trainings)
+                .Include(s => s.Subscribers)
                 .ToListAsync(cancellationToken);
 
             var sortedCourses = isDescending
@@ -103,14 +102,25 @@ namespace GymMateApi.Persistence.Repositories
             await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public Task SubscribeAsync(Guid courseId, Guid userId, CancellationToken cancellationToken)
+        public async Task SubscribeToCourse(Guid courseId, Guid userId, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var course = await dbContext.Courses.FindAsync(courseId, cancellationToken);
+            var subscriber = await dbContext.Users.FindAsync(userId, cancellationToken);
+            
+            course.Subscribers.Add(subscriber);
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public Task UnsubscribeAsync(Guid courseId, Guid userId, CancellationToken cancellationToken)
+        public async Task UnsubscribeFromCourse(Guid courseId, Guid userId, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var course = await dbContext.Courses
+                .Include(c => c.Subscribers)
+                .FirstOrDefaultAsync(c => c.Id == courseId, cancellationToken);
+            
+            var subscriber = await dbContext.Users.FindAsync(userId);
+            
+            course.Subscribers.Remove(subscriber);
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace GymMateApi.Core.Entities
         
         [NotMapped]
         public double AverageRating => Ratings.Count > 0 ? double.Round(Ratings.Average(), 2) : 0;
-        public ICollection<UserEntity> Subscribers { get; set; } = [];
+        public ICollection<UserEntity> Subscribers { get; set; } = new List<UserEntity>();
         public ICollection<TrainingEntity> Trainings { get; set; } = new List<TrainingEntity>();
     }
 }

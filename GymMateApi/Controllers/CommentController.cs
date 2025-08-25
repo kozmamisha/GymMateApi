@@ -35,9 +35,9 @@ namespace GymMateApi.Controllers
 
         [HttpPut("{id:guid}")]
         [Authorize]
-        public async Task<ActionResult> UpdateComment([FromRoute] Guid id, [FromBody] UpdateCommentRequest request, CancellationToken cancellationToken)
+        public async Task<ActionResult> UpdateComment([FromRoute] Guid id, [FromBody] string text, CancellationToken cancellationToken)
         {
-            await commentService.UpdateAsync(id, request.Text, cancellationToken);
+            await commentService.UpdateAsync(id, text, cancellationToken);
             return NoContent();
         }
 

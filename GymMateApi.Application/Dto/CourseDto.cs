@@ -6,6 +6,6 @@ public class CourseDto
     public string Name { get; set; } = string.Empty;
     public double AverageRating { get; set; }
 
-//    public ICollection<UserDto> Subscribers { get; set; } = [];
-    public ICollection<CourseTrainingDto> Trainings { get; set; } = [];
+    public ICollection<UserDto> Subscribers { get; set; } = new  List<UserDto>();
+    public ICollection<CourseTrainingDto> Trainings { get; set; } = new List<CourseTrainingDto>();
 }

@@ -18,6 +18,12 @@ public static class CourseMappingExtension
                 Name = e.Name,
                 Description = e.Description
             }).ToList(),
+            Subscribers = course.Subscribers.Select(s => new UserDto()
+            {
+                Id = s.Id,
+                UserName = s.UserName,
+                Email = s.Email,
+            }).ToList()
         };
     }
 

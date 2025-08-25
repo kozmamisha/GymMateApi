@@ -26,7 +26,7 @@ public class UserController(IUserService userService, IOptions<AuthOptions> opti
         
         HttpContext.Response.Cookies.Append(options.Value.CookieName, token);
 
-        return Created();
+        return Ok();
     }
 
     [HttpPost("logout")]

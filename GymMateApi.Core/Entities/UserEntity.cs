@@ -15,7 +15,7 @@ namespace GymMateApi.Core.Entities
         public string PasswordHash { get; set; } = string.Empty;
         public string Role { get; set; } = Roles.Admin;
 
-        public ICollection<CommentEntity> Comments { get; set; } = [];
+        public ICollection<CommentEntity> Comments { get; set; } = new List<CommentEntity>();
 
         public Guid? CourseId { get; set; }
         public CourseEntity? Course { get; set; }

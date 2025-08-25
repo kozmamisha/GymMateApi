@@ -1,16 +1,24 @@
-﻿using GymMateApi.Application.Dto;
+﻿using System.Security.Claims;
+using GymMateApi.Application.Dto;
 using GymMateApi.Application.Exceptions;
 using GymMateApi.Application.Extensions;
 using GymMateApi.Application.Interfaces;
 using GymMateApi.Core.Entities;
+using GymMateApi.Infrastructure.Auth;
 using GymMateApi.Persistence.Interfaces;
+using Microsoft.AspNetCore.Http;
 
 namespace GymMateApi.Application.Services;
 
 public class CourseService(
     ICourseRepository courseRepository, 
-    ITrainingRepository trainingRepository) : ICourseService
+    ITrainingRepository trainingRepository,
+    IUserRepository userRepository,
+    IHttpContextAccessor httpContextAccessor) : ICourseService
 {
+    private Guid CurrentUserId => Guid.Parse(
+        httpContextAccessor.HttpContext!.User.FindFirstValue(CustomClaims.UserId)!);
+    
     public async Task<List<CourseDto>> GetAllAsync(CancellationToken cancellationToken)
     {
         var courses = await courseRepository.GetAllCourses(cancellationToken);
@@ -113,5 +121,25 @@ public class CourseService(
         var sortedCourses = await courseRepository.GetCoursesSortedByRating(isDescending, cancellationToken);
         
         return sortedCourses.ToDtoList();
+    }
+
+    public async Task SubscribeToCourse(Guid courseId, CancellationToken cancellationToken)
+    {
+        var course = await courseRepository.GetCourseById(courseId, cancellationToken) 
+                     ?? throw new EntityNotFoundException("Course not found");
+        
+        var alreadySubscribed = course.Subscribers.Any(t => t.Id == CurrentUserId);
+        if (alreadySubscribed)
+            throw new BadRequestException("This user is already subscribed to this course");
+
+        await courseRepository.SubscribeToCourse(courseId, CurrentUserId, cancellationToken);
+    }
+
+    public async Task UnsubscribeFromCourse(Guid courseId, CancellationToken cancellationToken)
+    {
+        var course = await courseRepository.GetCourseById(courseId, cancellationToken) 
+                     ?? throw new EntityNotFoundException("Course not found");
+        
+        await courseRepository.UnsubscribeFromCourse(courseId, CurrentUserId, cancellationToken);
     }
 }

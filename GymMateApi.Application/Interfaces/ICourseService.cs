@@ -14,4 +14,6 @@ public interface ICourseService
     Task RateCourseAsync(Guid courseId, int rating, CancellationToken cancellationToken);
     Task<List<CourseDto>> GetCoursesByRatingFilterAsync(int rating, CancellationToken cancellationToken);
     Task<List<CourseDto>> GetCoursesSortedByRatingAsync(bool isDescending, CancellationToken cancellationToken);
+    Task SubscribeToCourse(Guid courseId, CancellationToken cancellationToken);
+    Task UnsubscribeFromCourse(Guid courseId, CancellationToken cancellationToken);
 }

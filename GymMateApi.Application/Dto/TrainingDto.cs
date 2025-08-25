@@ -13,8 +13,8 @@ namespace GymMateApi.Application.Dto
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        public ICollection<CommentDto> Comments { get; set; } = [];
+        public ICollection<CommentDto> Comments { get; set; } = new List<CommentDto>();
 
-        public ICollection<ExerciseDto> Exercises { get; set; } = [];
+        public ICollection<ExerciseDto> Exercises { get; set; } = new List<ExerciseDto>();
     }
 }
