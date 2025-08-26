@@ -4,11 +4,6 @@ using GymMateApi.Application.Extensions;
 using GymMateApi.Application.Interfaces;
 using GymMateApi.Core.Entities;
 using GymMateApi.Persistence.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GymMateApi.Application.Services
 {
@@ -16,6 +11,12 @@ namespace GymMateApi.Application.Services
     {
         public async Task CreateAsync(string name, string description, CancellationToken cancellationToken)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new BadRequestException("Training name cannot be empty");
+
+            if (string.IsNullOrWhiteSpace(description))
+                throw new BadRequestException("Training description cannot be empty");
+            
             TrainingEntity training = new()
             {
                 Name = name,

@@ -11,8 +11,7 @@ using Microsoft.AspNetCore.Http;
 namespace GymMateApi.Application.Services
 {
     public class CommentService(
-        ICommentRepository commentRepository, 
-        IUserRepository userRepository, 
+        ICommentRepository commentRepository,
         ITrainingRepository trainingRepository,
         IHttpContextAccessor httpContextAccessor) : ICommentService
     {
@@ -21,6 +20,9 @@ namespace GymMateApi.Application.Services
         
         public async Task CreateAsync(string text, Guid trainingId, CancellationToken cancellationToken)
         {
+            if (string.IsNullOrWhiteSpace(text))
+                throw new BadRequestException("Text field cannot be empty");
+            
             var training = await trainingRepository.GetTrainingById(trainingId, cancellationToken)
                 ?? throw new EntityNotFoundException("Training not found");
 

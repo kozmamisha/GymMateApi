@@ -1,5 +1,4 @@
-﻿using GymMateApi.Persistance;
-using GymMateApi.Persistence.Interfaces;
+﻿using GymMateApi.Persistence.Interfaces;
 using GymMateApi.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

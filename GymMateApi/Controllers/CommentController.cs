@@ -1,5 +1,5 @@
 ﻿using GymMateApi.Application.Interfaces;
-using GymMateApi.Contracts;
+using GymMateApi.Contracts.Comment;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,9 +35,9 @@ namespace GymMateApi.Controllers
 
         [HttpPut("{id:guid}")]
         [Authorize]
-        public async Task<ActionResult> UpdateComment([FromRoute] Guid id, [FromBody] string text, CancellationToken cancellationToken)
+        public async Task<ActionResult> UpdateComment([FromRoute] Guid id, [FromBody] UpdateCommentRequest request, CancellationToken cancellationToken)
         {
-            await commentService.UpdateAsync(id, text, cancellationToken);
+            await commentService.UpdateAsync(id, request.Text, cancellationToken);
             return NoContent();
         }
 

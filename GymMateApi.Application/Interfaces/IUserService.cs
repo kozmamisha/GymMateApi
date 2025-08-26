@@ -1,6 +1,4 @@
-﻿using GymMateApi.Application.Dto;
-
-namespace GymMateApi.Application.Interfaces;
+﻿namespace GymMateApi.Application.Interfaces;
 
 public interface IUserService
 {

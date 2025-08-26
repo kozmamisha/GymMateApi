@@ -1,5 +1,4 @@
 ﻿using GymMateApi.Core.Entities;
-using GymMateApi.Persistance;
 using GymMateApi.Persistence.Interfaces;
 using Microsoft.EntityFrameworkCore;
 

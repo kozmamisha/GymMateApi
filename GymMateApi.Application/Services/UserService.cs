@@ -1,9 +1,7 @@
 ﻿using System.Security.Claims;
-using GymMateApi.Application.Dto;
 using GymMateApi.Application.Exceptions;
 using GymMateApi.Application.Interfaces;
 using GymMateApi.Core.Entities;
-using GymMateApi.Infrastructure;
 using GymMateApi.Infrastructure.Auth;
 using GymMateApi.Infrastructure.Interfaces.Auth;
 using GymMateApi.Persistence.Interfaces;

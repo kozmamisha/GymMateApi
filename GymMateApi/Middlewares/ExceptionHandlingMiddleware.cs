@@ -1,26 +1,16 @@
 ﻿using GymMateApi.Application.Dto;
 using GymMateApi.Application.Exceptions;
 using System.Net;
-using System.Text.Json;
 
 namespace GymMateApi.Middlewares
 {
-    public class ExceptionHandlingMiddleware
+    public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger)
     {
-        private readonly RequestDelegate _next;
-        private readonly ILogger<ExceptionHandlingMiddleware> _logger;
-
-        public ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger)
-        {
-            _next = next;
-            _logger = logger;
-        }
-
         public async Task InvokeAsync(HttpContext context)
         {
             try
             {
-                await _next(context);
+                await next(context);
             }
             catch (Exception ex)
             {
@@ -42,7 +32,7 @@ namespace GymMateApi.Middlewares
             HttpStatusCode httpStatusCode,
             string message)
         {
-            _logger.LogError(exceptionMessage);
+            logger.LogError(exceptionMessage);
 
             HttpResponse response = context.Response;
 

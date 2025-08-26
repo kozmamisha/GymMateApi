@@ -13,7 +13,6 @@ namespace GymMateApi.Application.Services;
 public class CourseService(
     ICourseRepository courseRepository, 
     ITrainingRepository trainingRepository,
-    IUserRepository userRepository,
     IHttpContextAccessor httpContextAccessor) : ICourseService
 {
     private Guid CurrentUserId => Guid.Parse(
@@ -36,6 +35,9 @@ public class CourseService(
 
     public async Task CreateAsync(string name, CancellationToken cancellationToken)
     {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new BadRequestException("Course name cannot be empty");
+        
         CourseEntity course = new()
         {
             Name = name

@@ -1,13 +1,8 @@
 ﻿using GymMateApi.Core.Entities;
-using GymMateApi.Persistance.Configurations;
+using GymMateApi.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GymMateApi.Persistance
+namespace GymMateApi.Persistence
 {
     public class GymMateDbContext(DbContextOptions<GymMateDbContext> options) : DbContext(options)
     {

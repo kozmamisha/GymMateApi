@@ -1,4 +1,5 @@
 ﻿using GymMateApi.Application.Interfaces;
+using GymMateApi.Contracts.Course;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +11,9 @@ public class CourseController(ICourseService courseService) : ControllerBase
 {
     [HttpPost]
     [Authorize(Roles = "Admin")]
-    public async Task<ActionResult> CreateCourse([FromBody] string name, CancellationToken cancellationToken)
+    public async Task<ActionResult> CreateCourse([FromBody] CourseUpsertRequest request, CancellationToken cancellationToken)
     {
-        await courseService.CreateAsync(name, cancellationToken);
+        await courseService.CreateAsync(request.Name, cancellationToken);
         return Ok();
     }
 
@@ -20,10 +21,10 @@ public class CourseController(ICourseService courseService) : ControllerBase
     [Authorize(Roles = "Admin")]
     public async Task<ActionResult> AddTrainingToCourseAsync(
         [FromRoute] Guid courseId,
-        [FromBody] Guid trainingId,
+        [FromBody] CourseTrainingRequest request,
         CancellationToken cancellationToken)
     {
-        await courseService.AddTrainingToCourseAsync(courseId, trainingId, cancellationToken);
+        await courseService.AddTrainingToCourseAsync(courseId, request.TrainingId, cancellationToken);
         return Ok();
     }
     
@@ -31,10 +32,10 @@ public class CourseController(ICourseService courseService) : ControllerBase
     [Authorize(Roles = "Admin")]
     public async Task<ActionResult> RemoveTrainingFromCourseAsync(
         [FromRoute] Guid courseId,
-        [FromBody] Guid trainingId,
+        [FromBody] CourseTrainingRequest request,
         CancellationToken cancellationToken)
     {
-        await courseService.RemoveTrainingFromCourseAsync(courseId, trainingId, cancellationToken);
+        await courseService.RemoveTrainingFromCourseAsync(courseId, request.TrainingId, cancellationToken);
         return NoContent();
     }
 
@@ -80,9 +81,9 @@ public class CourseController(ICourseService courseService) : ControllerBase
 
     [HttpPut("{id:guid}")]
     [Authorize(Roles = "Admin")]
-    public async Task<ActionResult> UpdateCourse([FromRoute] Guid id, [FromBody] string name, CancellationToken cancellationToken)
+    public async Task<ActionResult> UpdateCourse([FromRoute] Guid id, [FromBody] CourseUpsertRequest request, CancellationToken cancellationToken)
     {
-        await courseService.UpdateAsync(id, name, cancellationToken);
+        await courseService.UpdateAsync(id, request.Name, cancellationToken);
         return NoContent();
     }
 

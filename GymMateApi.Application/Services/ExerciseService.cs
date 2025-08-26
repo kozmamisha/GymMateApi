@@ -2,11 +2,6 @@
 using GymMateApi.Application.Interfaces;
 using GymMateApi.Core.Entities;
 using GymMateApi.Persistence.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GymMateApi.Application.Dto;
 using GymMateApi.Application.Extensions;
 
@@ -18,6 +13,12 @@ namespace GymMateApi.Application.Services
     {
         public async Task CreateAsync(string name, string description, Guid trainingId, CancellationToken cancellationToken)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new BadRequestException("Exercise name cannot be empty");
+
+            if (string.IsNullOrWhiteSpace(description))
+                throw new BadRequestException("Exercise description cannot be empty");
+            
             var training = await trainingRepository.GetTrainingById(trainingId, cancellationToken)
                 ?? throw new EntityNotFoundException("Training not found");
 
