@@ -31,6 +31,10 @@ namespace GymMateApi.Persistence.Configurations
                 .WithMany(c => c.Subscribers)
                 .HasForeignKey(u => u.CourseId)
                 .IsRequired(false);
+            
+            builder.Property(a => a.Role)
+                .IsRequired()
+                .HasMaxLength(50);
         }
     }
 }
