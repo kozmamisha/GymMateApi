@@ -1,20 +1,15 @@
-﻿using GymMateApi.Application.Interfaces;
-using GymMateApi.Application.Services;
+﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GymMateApi.Application.Extensions
-{
-    public static class ApplicationExtensions
-    {
-        public static IServiceCollection AddApplication(this IServiceCollection serviceCollection)
-        {
-            serviceCollection.AddScoped<ICommentService, CommentService>();
-            serviceCollection.AddScoped<IExerciseService, ExerciseService>();
-            serviceCollection.AddScoped<ITrainingService, TrainingService>();
-            serviceCollection.AddScoped<ICourseService, CourseService>();
-            serviceCollection.AddScoped<IUserService, UserService>();
+namespace GymMateApi.Application.Extensions;
 
-            return serviceCollection;
-        }
+public static class ApplicationExtensions
+{
+    public static IServiceCollection AddApplication(this IServiceCollection serviceCollection)
+    {
+        serviceCollection.AddMediatR(cfg =>
+            cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+            
+        return serviceCollection;
     }
 }

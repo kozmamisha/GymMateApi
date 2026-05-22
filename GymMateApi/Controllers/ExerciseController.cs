@@ -1,5 +1,11 @@
-﻿using GymMateApi.Application.Interfaces;
+﻿using GymMateApi.Application.Exercises.Commands.CreateExercise;
+using GymMateApi.Application.Exercises.Commands.DeleteExercise;
+using GymMateApi.Application.Exercises.Commands.UpdateExercise;
+using GymMateApi.Application.Exercises.Queries.GetAllExercises;
+using GymMateApi.Application.Exercises.Queries.GetExerciseById;
+using GymMateApi.Application.Exercises.Queries.GetExerciseByPage;
 using GymMateApi.Contracts.Exercise;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,53 +13,44 @@ namespace GymMateApi.Controllers
 {
     [ApiController]
     [Route("api/exercises")]
-    public class ExerciseController(IExerciseService exerciseService) : ControllerBase
+    public class ExerciseController(IMediator mediator) : ControllerBase
     {
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> CreateExercise([FromBody] CreateExerciseRequest request, CancellationToken cancellationToken)
+        public async Task<ActionResult> CreateExercise([FromBody] CreateExerciseCommand command, CancellationToken cancellationToken)
         {
-            await exerciseService.CreateAsync(request.Name, request.Description, request.TrainingId, cancellationToken);
-            return Ok();
+            await mediator.Send(command, cancellationToken);
+            return Created();
         }
 
         [HttpGet()]
         [Authorize]
-        public async Task<ActionResult> GetAllExercises(CancellationToken cancellationToken)
-        {
-            var exercises = await exerciseService.GetAllAsync(cancellationToken);
-            return Ok(exercises);
-        }
+        public async Task<ActionResult> GetAllExercises(CancellationToken cancellationToken) =>
+            Ok(await mediator.Send(new GetAllExercisesQuery(), cancellationToken));
         
         [HttpGet("pagination")]
         [Authorize]
-        public async Task<ActionResult> GetExercisesByPage([FromQuery] int page, [FromQuery] int pageSize, CancellationToken cancellationToken)
-        {
-            var exercises = await exerciseService.GetByPage(page, pageSize, cancellationToken);
-            return Ok(exercises);
-        }
+        public async Task<ActionResult> GetExercisesByPage([FromQuery] int page, [FromQuery] int pageSize, CancellationToken cancellationToken) =>
+            Ok(await mediator.Send(new GetExercisesByPageQuery(page, pageSize), cancellationToken));
 
         [HttpGet("{id:guid}")]
         [Authorize]
-        public async Task<ActionResult> GetOneExercise([FromRoute] Guid id, CancellationToken cancellationToken)
-        {
-            var exercise = await exerciseService.GetByIdAsync(id, cancellationToken);
-            return Ok(exercise);
-        }
+        public async Task<ActionResult> GetOneExercise(Guid id, CancellationToken cancellationToken) =>
+            Ok(await mediator.Send(new GetExerciseByIdQuery(id), cancellationToken));
 
         [HttpPut("{id:guid}")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> UpdateExercise([FromRoute] Guid id, [FromBody] UpdateExerciseRequest request, CancellationToken cancellationToken)
         {
-            await exerciseService.UpdateAsync(id, request.Name, request.Description, cancellationToken);
+            await mediator.Send(new UpdateExerciseCommand(id, request.Name, request.Description), cancellationToken);
             return NoContent();
         }
 
         [HttpDelete("{id:guid}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> DeleteExercise([FromRoute] Guid id, CancellationToken cancellationToken)
+        public async Task<ActionResult> DeleteExercise(Guid id, CancellationToken cancellationToken)
         {
-            await exerciseService.DeleteAsync(id, cancellationToken);
+            await mediator.Send(new DeleteExerciseCommand(id), cancellationToken);
             return NoContent();
         }
     }

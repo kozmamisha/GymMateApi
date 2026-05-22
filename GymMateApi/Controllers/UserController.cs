@@ -1,6 +1,10 @@
-﻿using GymMateApi.Application.Interfaces;
+﻿using System.Security.Claims;
+using GymMateApi.Application.Users.Commands.DeleteUser;
+using GymMateApi.Application.Users.Commands.LoginUser;
+using GymMateApi.Application.Users.Commands.RegisterUser;
 using GymMateApi.Contracts.User;
 using GymMateApi.Infrastructure.Auth;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -9,24 +13,22 @@ namespace GymMateApi.Controllers;
 
 [ApiController]
 [Route("api/user")]
-public class UserController(IUserService userService, IOptions<AuthOptions> options) : ControllerBase
+public class UserController(IMediator mediator, IOptions<AuthOptions> options) : ControllerBase
 {
+    private Guid CurrentUserId => Guid.Parse(User.FindFirstValue(CustomClaims.UserId)!);
+    
     [HttpPost("register")]
     public async Task<ActionResult> Register([FromBody] RegisterUserRequest request, CancellationToken cancellationToken)
     {
-        await userService.Register(request.UserName, request.Email, request.Password, cancellationToken);
-
-        return Created();
+        await mediator.Send(new RegisterUserCommand(request.UserName, request.Email, request.Password), cancellationToken);
+        return Ok();
     }
     
     [HttpPost("login")]
     public async Task<ActionResult> Login([FromBody] LoginUserRequest request, CancellationToken cancellationToken)
     {
-        var token = await userService.Login(request.Email, request.Password, cancellationToken);
-        
-        HttpContext.Response.Cookies.Append(options.Value.CookieName, token);
-
-        return Ok();
+        var token = await mediator.Send(new LoginUserCommand(request.Email, request.Password), cancellationToken);
+        return Ok(token);
     }
 
     [HttpPost("logout")]
@@ -42,10 +44,7 @@ public class UserController(IUserService userService, IOptions<AuthOptions> opti
     [Authorize]
     public async Task<ActionResult> DeleteUser([FromRoute] Guid id, CancellationToken cancellationToken)
     {
-        await userService.DeleteAsync(id, cancellationToken);
-        
-        HttpContext.Response.Cookies.Delete(options.Value.CookieName);
-        
+        await mediator.Send(new DeleteUserCommand(id, CurrentUserId), cancellationToken);
         return NoContent();
     }
 }

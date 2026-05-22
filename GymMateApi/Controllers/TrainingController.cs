@@ -1,5 +1,10 @@
-﻿using GymMateApi.Application.Interfaces;
+﻿using GymMateApi.Application.Trainings.Commands.CreateTraining;
+using GymMateApi.Application.Trainings.Commands.DeleteTraining;
+using GymMateApi.Application.Trainings.Commands.UpdateTraining;
+using GymMateApi.Application.Trainings.Queries.GetAllTrainings;
+using GymMateApi.Application.Trainings.Queries.GetTrainingById;
 using GymMateApi.Contracts.Training;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,13 +12,13 @@ namespace GymMateApi.Controllers
 {
     [ApiController]
     [Route("api/trainings")]
-    public class TrainingController(ITrainingService trainingService) : ControllerBase
+    public class TrainingController(IMediator mediator) : ControllerBase
     {
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> CreateTraining([FromBody] TrainingUpsertRequest request, CancellationToken cancellationToken)
         {
-            await trainingService.CreateAsync(request.Name, request.Description, cancellationToken);
+            await mediator.Send(new CreateTrainingCommand(request.Name, request.Description), cancellationToken);
             return Ok();
         }
 
@@ -21,7 +26,7 @@ namespace GymMateApi.Controllers
         [Authorize]
         public async Task<ActionResult> GetAllTrainings(CancellationToken cancellationToken)
         {
-            var trainings = await trainingService.GetAllAsync(cancellationToken);
+            var trainings = await mediator.Send(new GetAllTrainingsQuery(), cancellationToken);
             return Ok(trainings);
         }
 
@@ -29,7 +34,7 @@ namespace GymMateApi.Controllers
         [Authorize]
         public async Task<ActionResult> GetOneTraining([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            var training = await trainingService.GetByIdAsync(id, cancellationToken);
+            var training = await mediator.Send(new GetTrainingByIdQuery(id), cancellationToken);
             return Ok(training);
         }
 
@@ -37,7 +42,7 @@ namespace GymMateApi.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> UpdateTraining([FromRoute] Guid id, [FromBody] TrainingUpsertRequest request, CancellationToken cancellationToken)
         {
-            await trainingService.UpdateAsync(id, request.Name, request.Description, cancellationToken);
+            await mediator.Send(new UpdateTrainingCommand(id, request.Name, request.Description), cancellationToken);
             return NoContent();
         }
 
@@ -45,7 +50,7 @@ namespace GymMateApi.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteTraining([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            await trainingService.DeleteAsync(id, cancellationToken);
+            await mediator.Send(new DeleteTrainingCommand(id), cancellationToken);
             return NoContent();
         }
     }
