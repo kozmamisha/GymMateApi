@@ -1,4 +1,6 @@
 ﻿using GymMateApi.Application.Exceptions;
+using GymMateApi.AuthService.Infrastructure.Interfaces.Auth;
+using GymMateApi.AuthService.Persistance.Interfaces;
 using GymMateApi.Infrastructure.Interfaces.Auth;
 using GymMateApi.Persistence.Interfaces;
 using MediatR;

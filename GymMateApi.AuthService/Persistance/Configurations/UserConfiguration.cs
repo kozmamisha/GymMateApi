@@ -1,8 +1,8 @@
-﻿using GymMateApi.Core.Entities;
+﻿using GymMateApi.AuthService.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace GymMateApi.Persistence.Configurations
+namespace GymMateApi.AuthService.Persistance.Configurations
 {
     public class UserConfiguration : IEntityTypeConfiguration<UserEntity>
     {
@@ -24,7 +24,8 @@ namespace GymMateApi.Persistence.Configurations
             builder
                 .HasMany(u => u.Comments)
                 .WithOne(c => c.Author)
-                .HasForeignKey(c => c.AuthorId);
+                .HasForeignKey(c => c.AuthorId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder
                 .HasOne(u => u.Course)

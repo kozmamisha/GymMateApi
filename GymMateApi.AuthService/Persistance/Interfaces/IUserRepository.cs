@@ -1,6 +1,6 @@
-﻿using GymMateApi.Core.Entities;
+﻿using GymMateApi.AuthService.Core;
 
-namespace GymMateApi.Persistence.Interfaces
+namespace GymMateApi.AuthService.Persistance.Interfaces
 {
     public interface IUserRepository
     {

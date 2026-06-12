@@ -16,7 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Auth\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="Interfaces\Auth\" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,8 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using GymMateApi.AuthService.Core;
+using GymMateApi.AuthService.Infrastructure.Interfaces.Auth;
 using GymMateApi.Core.Entities;
 using GymMateApi.Infrastructure.Interfaces.Auth;
 using Microsoft.Extensions.Options;

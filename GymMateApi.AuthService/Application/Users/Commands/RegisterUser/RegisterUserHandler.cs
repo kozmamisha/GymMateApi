@@ -1,4 +1,6 @@
 ﻿using GymMateApi.Application.Exceptions;
+using GymMateApi.AuthService.Core;
+using GymMateApi.AuthService.Persistance.Interfaces;
 using GymMateApi.Core.Entities;
 using GymMateApi.Infrastructure.Interfaces.Auth;
 using GymMateApi.Persistence.Interfaces;

@@ -1,8 +1,9 @@
-﻿using GymMateApi.Core.Entities;
-using GymMateApi.Persistence.Interfaces;
+﻿using GymMateApi.AuthService.Core;
+using GymMateApi.AuthService.Persistance.Interfaces;
+using GymMateApi.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace GymMateApi.Persistence.Repositories
+namespace GymMateApi.AuthService.Persistance.Repositories
 {
     public class UserRepository(GymMateDbContext dbContext) : IUserRepository
     {

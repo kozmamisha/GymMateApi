@@ -1,6 +1,7 @@
 ﻿using GymMateApi.Core.Constants;
+using GymMateApi.Core.Entities;
 
-namespace GymMateApi.Core.Entities
+namespace GymMateApi.AuthService.Core
 {
     public class UserEntity
     {

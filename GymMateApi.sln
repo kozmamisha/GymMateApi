@@ -13,6 +13,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymMateApi.Persistence", "G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymMateApi.Infrastructure", "GymMateApi.Infrastructure\GymMateApi.Infrastructure.csproj", "{B80AF1D1-0461-4C68-89E1-324968BEF367}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymMateApi.Tests", "GymMateApi.Tests\GymMateApi.Tests.csproj", "{13CEB2CE-C09D-42C7-B087-6F5D780E9A80}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{9FA9DF7B-55AD-4DA1-95E2-7B36C105B3A6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "auth", "auth", "{1D36F766-2D91-4401-AC8F-150310A18E18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymMateApi.AuthService", "GymMateApi.AuthService\GymMateApi.AuthService.csproj", "{EF00070B-63C1-41D1-A6BE-1D3AE8CD9615}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,11 +47,23 @@ Global
 		{B80AF1D1-0461-4C68-89E1-324968BEF367}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B80AF1D1-0461-4C68-89E1-324968BEF367}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B80AF1D1-0461-4C68-89E1-324968BEF367}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13CEB2CE-C09D-42C7-B087-6F5D780E9A80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13CEB2CE-C09D-42C7-B087-6F5D780E9A80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13CEB2CE-C09D-42C7-B087-6F5D780E9A80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13CEB2CE-C09D-42C7-B087-6F5D780E9A80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF00070B-63C1-41D1-A6BE-1D3AE8CD9615}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF00070B-63C1-41D1-A6BE-1D3AE8CD9615}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF00070B-63C1-41D1-A6BE-1D3AE8CD9615}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF00070B-63C1-41D1-A6BE-1D3AE8CD9615}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FA027B4F-9517-420B-A5BD-C8DA7551F74B}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1D36F766-2D91-4401-AC8F-150310A18E18} = {9FA9DF7B-55AD-4DA1-95E2-7B36C105B3A6}
+		{EF00070B-63C1-41D1-A6BE-1D3AE8CD9615} = {1D36F766-2D91-4401-AC8F-150310A18E18}
 	EndGlobalSection
 EndGlobal

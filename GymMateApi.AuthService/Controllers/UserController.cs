@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace GymMateApi.Controllers;
+namespace GymMateApi.AuthService.Controllers;
 
 [ApiController]
 [Route("api/user")]
