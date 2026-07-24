@@ -9,21 +9,23 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace GymMateApi.AuthService.Controllers;
+namespace GymMateApi.AuthService.Presentation.Controllers;
 
 [ApiController]
 [Route("api/user")]
 public class UserController(IMediator mediator, IOptions<AuthOptions> options) : ControllerBase
 {
     private Guid CurrentUserId => Guid.Parse(User.FindFirstValue(CustomClaims.UserId)!);
-    
+
     [HttpPost("register")]
-    public async Task<ActionResult> Register([FromBody] RegisterUserRequest request, CancellationToken cancellationToken)
+    public async Task<ActionResult> Register([FromBody] RegisterUserRequest request,
+        CancellationToken cancellationToken)
     {
-        await mediator.Send(new RegisterUserCommand(request.UserName, request.Email, request.Password), cancellationToken);
+        await mediator.Send(new RegisterUserCommand(request.UserName, request.Email, request.Password),
+            cancellationToken);
         return Ok();
     }
-    
+
     [HttpPost("login")]
     public async Task<ActionResult> Login([FromBody] LoginUserRequest request, CancellationToken cancellationToken)
     {

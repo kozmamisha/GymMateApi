@@ -15,4 +15,12 @@
     <PackageReference Include="MediatR" Version="14.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Comments\" />
+    <Folder Include="Courses\" />
+    <Folder Include="Exercises\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Trainings\" />
+  </ItemGroup>
+
 </Project>

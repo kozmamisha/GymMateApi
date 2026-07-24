@@ -1,0 +1,6 @@
+@GymMateApi.AuthService_HostAddress = http://localhost:5009
+
+GET {{GymMateApi.AuthService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
