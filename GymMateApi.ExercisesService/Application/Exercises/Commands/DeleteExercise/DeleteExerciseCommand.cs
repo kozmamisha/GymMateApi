@@ -1,5 +1,5 @@
-﻿using MediatR;
+using MediatR;
 
-namespace GymMateApi.Application.Exercises.Commands.DeleteExercise;
+namespace GymMateApi.ExercisesService.Application.Exercises.Commands.DeleteExercise;
 
 public record DeleteExerciseCommand(Guid Id) : IRequest;

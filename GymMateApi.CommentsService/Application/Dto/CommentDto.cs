@@ -1,11 +1,12 @@
-﻿namespace GymMateApi.Application.Dto
-{
-    public class CommentDto
-    {
-        public Guid Id { get; set; }
-        public string Text { get; set; } = string.Empty;
-        public DateTime CreatedAt { get; set; }
+namespace GymMateApi.CommentsService.Application.Dto;
 
-        public Guid AuthorId { get; set; }
-    }
+public class CommentDto
+{
+    public Guid Id { get; set; }
+    public string Text { get; set; } = string.Empty;
+    public DateTime CreatedAt { get; set; }
+
+    public Guid AuthorId { get; set; }
+
+    public Guid TrainingId { get; set; }
 }

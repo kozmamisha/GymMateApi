@@ -1,4 +1,4 @@
-﻿using GymMateApi.Infrastructure.Auth;
+﻿using GymMateApi.AuthService.Infrastructure.Auth;
 using Xunit;
 
 namespace GymMateApi.Tests.Auth.Unit;

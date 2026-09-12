@@ -1,7 +1,7 @@
-﻿using GymMateApi.Application.Dto;
-using GymMateApi.Core.Entities;
+using GymMateApi.CoursesService.Application.Dto;
+using GymMateApi.CoursesService.Core;
 
-namespace GymMateApi.Application.Extensions;
+namespace GymMateApi.CoursesService.Application.Extensions;
 
 public static class CourseMappingExtension
 {
@@ -12,23 +12,13 @@ public static class CourseMappingExtension
             Id = course.Id,
             Name = course.Name,
             AverageRating = course.AverageRating,
-            Trainings = course.Trainings.Select(e => new CourseTrainingDto()
-            {
-                Id = e.Id,
-                Name = e.Name,
-                Description = e.Description
-            }).ToList(),
-            Subscribers = course.Subscribers.Select(s => new UserDto()
-            {
-                Id = s.Id,
-                UserName = s.UserName,
-                Email = s.Email,
-            }).ToList()
+            SubscriberIds = course.SubscriberIds.ToList(),
+            TrainingIds = course.TrainingIds.ToList()
         };
     }
 
     public static List<CourseDto> ToDtoList(this IEnumerable<CourseEntity> courses)
     {
-        return courses.Select(t => t.ToDto()).ToList();
+        return courses.Select(c => c.ToDto()).ToList();
     }
 }

@@ -2,8 +2,8 @@
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using DotNet.Testcontainers.Builders;
-using GymMateApi.Contracts.User;
-using GymMateApi.Persistence;
+using GymMateApi.AuthService.Presentation.Contracts.User;
+using GymMateApi.AuthService.Persistance;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,11 +34,11 @@ public class UserControllerIntegrationTests : IAsyncLifetime
             {
                 // Replace real DB with test-container DB
                 var descriptor =
-                    services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<GymMateDbContext>));
+                    services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<AuthDbContext>));
                 if (descriptor is not null)
                     services.Remove(descriptor);
 
-                services.AddDbContext<GymMateDbContext>(opts =>
+                services.AddDbContext<AuthDbContext>(opts =>
                     opts.UseNpgsql(_postgres.GetConnectionString()));
             });
 
@@ -50,7 +50,7 @@ public class UserControllerIntegrationTests : IAsyncLifetime
 
         // Apply EF migrations
         using var scope = _factory.Services.CreateScope();
-        var db = scope.ServiceProvider.GetRequiredService<GymMateDbContext>();
+        var db = scope.ServiceProvider.GetRequiredService<AuthDbContext>();
         await db.Database.MigrateAsync();
 
         _client = _factory.CreateClient();
@@ -245,7 +245,7 @@ public class UserControllerIntegrationTests : IAsyncLifetime
         var token = await RegisterAndLoginAsync(email);
 
         using var scope = _factory.Services.CreateScope();
-        var db = scope.ServiceProvider.GetRequiredService<GymMateDbContext>();
+        var db = scope.ServiceProvider.GetRequiredService<AuthDbContext>();
         var user = await db.Users.FirstAsync(u => u.Email == email);
 
         var client = _factory.CreateClient();
@@ -277,7 +277,7 @@ public class UserControllerIntegrationTests : IAsyncLifetime
             MakeRegisterRequest(email: "user-b-del@gym.com", userName: "UserB"));
 
         using var scope = _factory.Services.CreateScope();
-        var db = scope.ServiceProvider.GetRequiredService<GymMateDbContext>();
+        var db = scope.ServiceProvider.GetRequiredService<AuthDbContext>();
         var userB = await db.Users.FirstAsync(u => u.Email == "user-b-del@gym.com");
 
         // Try to delete user B while authenticated as user A

@@ -1,11 +1,11 @@
-﻿using GymMateApi.Application.Dto;
-using GymMateApi.Core.Entities;
+using GymMateApi.CommentsService.Application.Dto;
+using GymMateApi.CommentsService.Core;
 
-namespace GymMateApi.Application.Extensions;
+namespace GymMateApi.CommentsService.Application.Extensions;
 
 public static class CommentMappingExtension
 {
-    private static CommentDto ToDto(this CommentEntity comment)
+    public static CommentDto ToDto(this CommentEntity comment)
     {
         return new CommentDto
         {
@@ -13,11 +13,12 @@ public static class CommentMappingExtension
             Text = comment.Text,
             CreatedAt = comment.CreatedAt,
             AuthorId = comment.AuthorId,
+            TrainingId = comment.TrainingId
         };
     }
 
     public static List<CommentDto> ToDtoList(this IEnumerable<CommentEntity> comments)
     {
-        return comments.Select(t => t.ToDto()).ToList();
+        return comments.Select(c => c.ToDto()).ToList();
     }
 }

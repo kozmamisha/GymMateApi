@@ -1,5 +1,5 @@
-﻿using MediatR;
+using MediatR;
 
-namespace GymMateApi.Application.Courses.Commands.RateCourse;
+namespace GymMateApi.CoursesService.Application.Courses.Commands.RateCourse;
 
 public record RateCourseCommand(Guid CourseId, int Rating) : IRequest;

@@ -1,6 +1,22 @@
 @GymMateApi.AuthService_HostAddress = http://localhost:5009
 
-GET {{GymMateApi.AuthService_HostAddress}}/weatherforecast/
-Accept: application/json
+POST {{GymMateApi.AuthService_HostAddress}}/api/user/register
+Content-Type: application/json
+
+{
+  "userName": "gymuser",
+  "email": "user@gym.com",
+  "password": "P@ssw0rd!"
+}
+
+###
+
+POST {{GymMateApi.AuthService_HostAddress}}/api/user/login
+Content-Type: application/json
+
+{
+  "email": "user@gym.com",
+  "password": "P@ssw0rd!"
+}
 
 ###

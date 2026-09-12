@@ -1,4 +1,4 @@
-﻿namespace GymMateApi.Application.Dto;
+namespace GymMateApi.AuthService.Application.Dto;
 
 public class UserDto
 {

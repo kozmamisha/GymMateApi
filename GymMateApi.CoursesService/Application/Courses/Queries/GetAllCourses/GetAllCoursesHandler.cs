@@ -1,9 +1,9 @@
-﻿using GymMateApi.Application.Dto;
-using GymMateApi.Application.Extensions;
-using GymMateApi.Persistence.Interfaces;
+using GymMateApi.CoursesService.Application.Dto;
+using GymMateApi.CoursesService.Application.Extensions;
+using GymMateApi.CoursesService.Persistance.Interfaces;
 using MediatR;
 
-namespace GymMateApi.Application.Courses.Queries.GetAllCourses;
+namespace GymMateApi.CoursesService.Application.Courses.Queries.GetAllCourses;
 
 public class GetAllCoursesHandler(
     ICourseRepository courseRepository) : IRequestHandler<GetAllCoursesQuery, List<CourseDto>>

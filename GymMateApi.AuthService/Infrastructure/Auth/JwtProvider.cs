@@ -1,14 +1,13 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using GymMateApi.AuthService.Core;
 using GymMateApi.AuthService.Infrastructure.Interfaces.Auth;
-using GymMateApi.Core.Entities;
-using GymMateApi.Infrastructure.Interfaces.Auth;
+using GymMateApi.Shared.Auth;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace GymMateApi.Infrastructure.Auth;
+namespace GymMateApi.AuthService.Infrastructure.Auth;
 
 public class JwtProvider(IOptions<JwtOptions> options) : IJwtProvider
 {
@@ -16,7 +15,8 @@ public class JwtProvider(IOptions<JwtOptions> options) : IJwtProvider
 
     public string GenerateToken(UserEntity user)
     {
-        Claim[] claims = [
+        Claim[] claims =
+        [
             new(CustomClaims.UserId, user.Id.ToString()),
             new(CustomClaims.UserName, user.UserName),
             new(CustomClaims.Role, user.Role),

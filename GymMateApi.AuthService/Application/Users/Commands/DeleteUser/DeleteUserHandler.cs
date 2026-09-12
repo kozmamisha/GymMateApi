@@ -1,9 +1,8 @@
-﻿using GymMateApi.Application.Exceptions;
 using GymMateApi.AuthService.Persistance.Interfaces;
-using GymMateApi.Persistence.Interfaces;
+using GymMateApi.Shared.Exceptions;
 using MediatR;
 
-namespace GymMateApi.Application.Users.Commands.DeleteUser;
+namespace GymMateApi.AuthService.Application.Users.Commands.DeleteUser;
 
 public class DeleteUserHandler(
     IUserRepository userRepository) : IRequestHandler<DeleteUserCommand>

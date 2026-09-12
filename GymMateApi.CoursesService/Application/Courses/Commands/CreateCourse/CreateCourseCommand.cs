@@ -1,5 +1,5 @@
-﻿using MediatR;
+using MediatR;
 
-namespace GymMateApi.Application.Courses.Commands.CreateCourse;
+namespace GymMateApi.CoursesService.Application.Courses.Commands.CreateCourse;
 
 public record CreateCourseCommand(string Name) : IRequest;

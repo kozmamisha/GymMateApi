@@ -1,8 +1,8 @@
-﻿using GymMateApi.Application.Exceptions;
-using GymMateApi.Persistence.Interfaces;
+using GymMateApi.CoursesService.Persistance.Interfaces;
+using GymMateApi.Shared.Exceptions;
 using MediatR;
 
-namespace GymMateApi.Application.Courses.Commands.DeleteCourse;
+namespace GymMateApi.CoursesService.Application.Courses.Commands.DeleteCourse;
 
 public class DeleteCourseHandler(
     ICourseRepository courseRepository) : IRequestHandler<DeleteCourseCommand>

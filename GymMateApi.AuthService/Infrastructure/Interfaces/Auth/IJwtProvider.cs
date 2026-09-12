@@ -1,4 +1,3 @@
-﻿
 using GymMateApi.AuthService.Core;
 
 namespace GymMateApi.AuthService.Infrastructure.Interfaces.Auth;

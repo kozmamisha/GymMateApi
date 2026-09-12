@@ -1,0 +1,6 @@
+@GymMateApi.CommentsService_HostAddress = http://localhost:5062
+
+GET {{GymMateApi.CommentsService_HostAddress}}/api/comments
+Accept: application/json
+
+###

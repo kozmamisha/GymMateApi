@@ -1,6 +1,6 @@
-﻿using GymMateApi.Application.Dto;
+using GymMateApi.TrainingsService.Application.Dto;
 using MediatR;
 
-namespace GymMateApi.Application.Trainings.Queries.GetTrainingById;
+namespace GymMateApi.TrainingsService.Application.Trainings.Queries.GetTrainingById;
 
 public record GetTrainingByIdQuery(Guid Id) : IRequest<TrainingDto>;

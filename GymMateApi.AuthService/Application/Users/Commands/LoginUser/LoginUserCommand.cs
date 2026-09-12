@@ -1,5 +1,5 @@
-﻿using MediatR;
+using MediatR;
 
-namespace GymMateApi.Application.Users.Commands.LoginUser;
+namespace GymMateApi.AuthService.Application.Users.Commands.LoginUser;
 
 public record LoginUserCommand(string Email, string Password) : IRequest<string>;

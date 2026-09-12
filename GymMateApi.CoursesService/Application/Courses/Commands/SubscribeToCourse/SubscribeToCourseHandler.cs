@@ -1,8 +1,8 @@
-﻿using GymMateApi.Application.Exceptions;
-using GymMateApi.Persistence.Interfaces;
+using GymMateApi.CoursesService.Persistance.Interfaces;
+using GymMateApi.Shared.Exceptions;
 using MediatR;
 
-namespace GymMateApi.Application.Courses.Commands.SubscribeToCourse;
+namespace GymMateApi.CoursesService.Application.Courses.Commands.SubscribeToCourse;
 
 public class SubscribeToCourseHandler(
     ICourseRepository courseRepository) : IRequestHandler<SubscribeToCourseCommand>
@@ -12,7 +12,7 @@ public class SubscribeToCourseHandler(
         var course = await courseRepository.GetCourseById(request.CourseId, cancellationToken)
                      ?? throw new EntityNotFoundException("Course not found");
 
-        var alreadySubscribed = course.Subscribers.Any(s => s.Id == request.UserId);
+        var alreadySubscribed = course.SubscriberIds.Any(s => s == request.UserId);
         if (alreadySubscribed)
             throw new BadRequestException("This user is already subscribed to this course");
 

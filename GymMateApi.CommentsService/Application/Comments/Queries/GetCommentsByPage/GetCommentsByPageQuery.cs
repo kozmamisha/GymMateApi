@@ -1,6 +1,6 @@
-﻿using GymMateApi.Application.Dto;
+using GymMateApi.CommentsService.Application.Dto;
 using MediatR;
 
-namespace GymMateApi.Application.Comments.Queries.GetCommentsByPage;
+namespace GymMateApi.CommentsService.Application.Comments.Queries.GetCommentsByPage;
 
 public record GetCommentsByPageQuery(int Page, int PageSize) : IRequest<List<CommentDto>>;

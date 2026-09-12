@@ -1,5 +1,5 @@
-﻿using MediatR;
+using MediatR;
 
-namespace GymMateApi.Application.Comments.Comments.CreateComment;
+namespace GymMateApi.CommentsService.Application.Comments.Commands.CreateComment;
 
 public record CreateCommentCommand(string Text, Guid TrainingId, Guid UserId) : IRequest;

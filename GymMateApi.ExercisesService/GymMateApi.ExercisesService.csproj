@@ -1,21 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-    </PropertyGroup>
+        <RootNamespace>GymMateApi.ExercisesService</RootNamespace>
+      <UserSecretsId>683560c5-b0f7-42cd-9dc5-7e38691dcf1c</UserSecretsId>
+  </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.1"/>
+        <PackageReference Include="MediatR" Version="14.1.0" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1" />
+        <PackageReference Include="Scalar.AspNetCore" Version="2.8.10" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Application\Exercises\" />
-      <Folder Include="Core\" />
-      <Folder Include="Infrastructure\" />
-      <Folder Include="Persistance\" />
-      <Folder Include="Presentation\" />
+        <ProjectReference Include="..\GymMateApi.Shared\GymMateApi.Shared.csproj" />
     </ItemGroup>
 
 </Project>

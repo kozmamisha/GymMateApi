@@ -1,8 +1,8 @@
-﻿using GymMateApi.Application.Exceptions;
-using GymMateApi.Application.Users.Commands.LoginUser;
-using GymMateApi.Core.Entities;
-using GymMateApi.Infrastructure.Interfaces.Auth;
-using GymMateApi.Persistence.Interfaces;
+﻿using GymMateApi.Shared.Exceptions;
+using GymMateApi.AuthService.Application.Users.Commands.LoginUser;
+using GymMateApi.AuthService.Core;
+using GymMateApi.AuthService.Infrastructure.Interfaces.Auth;
+using GymMateApi.AuthService.Persistance.Interfaces;
 using Moq;
 using Xunit;
 

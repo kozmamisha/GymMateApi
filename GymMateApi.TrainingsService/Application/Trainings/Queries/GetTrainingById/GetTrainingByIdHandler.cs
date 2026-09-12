@@ -1,10 +1,10 @@
-﻿using GymMateApi.Application.Dto;
-using GymMateApi.Application.Exceptions;
-using GymMateApi.Application.Extensions;
-using GymMateApi.Persistence.Interfaces;
+using GymMateApi.Shared.Exceptions;
+using GymMateApi.TrainingsService.Application.Dto;
+using GymMateApi.TrainingsService.Application.Extensions;
+using GymMateApi.TrainingsService.Persistance.Interfaces;
 using MediatR;
 
-namespace GymMateApi.Application.Trainings.Queries.GetTrainingById;
+namespace GymMateApi.TrainingsService.Application.Trainings.Queries.GetTrainingById;
 
 public class GetTrainingByIdHandler(
     ITrainingRepository trainingRepository) : IRequestHandler<GetTrainingByIdQuery, TrainingDto>

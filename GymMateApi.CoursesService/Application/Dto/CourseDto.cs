@@ -1,4 +1,4 @@
-﻿namespace GymMateApi.Application.Dto;
+namespace GymMateApi.CoursesService.Application.Dto;
 
 public class CourseDto
 {
@@ -6,6 +6,6 @@ public class CourseDto
     public string Name { get; set; } = string.Empty;
     public double AverageRating { get; set; }
 
-    public ICollection<UserDto> Subscribers { get; set; } = new  List<UserDto>();
-    public ICollection<CourseTrainingDto> Trainings { get; set; } = new List<CourseTrainingDto>();
+    public ICollection<Guid> SubscriberIds { get; set; } = new List<Guid>();
+    public ICollection<Guid> TrainingIds { get; set; } = new List<Guid>();
 }

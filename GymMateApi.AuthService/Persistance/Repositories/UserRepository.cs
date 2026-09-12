@@ -1,6 +1,5 @@
-﻿using GymMateApi.AuthService.Core;
+using GymMateApi.AuthService.Core;
 using GymMateApi.AuthService.Persistance.Interfaces;
-using GymMateApi.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace GymMateApi.AuthService.Persistance.Repositories;

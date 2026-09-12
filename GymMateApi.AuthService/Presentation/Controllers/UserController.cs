@@ -1,9 +1,9 @@
-﻿using System.Security.Claims;
-using GymMateApi.Application.Users.Commands.DeleteUser;
-using GymMateApi.Application.Users.Commands.LoginUser;
-using GymMateApi.Application.Users.Commands.RegisterUser;
-using GymMateApi.Contracts.User;
-using GymMateApi.Infrastructure.Auth;
+using System.Security.Claims;
+using GymMateApi.AuthService.Application.Users.Commands.DeleteUser;
+using GymMateApi.AuthService.Application.Users.Commands.LoginUser;
+using GymMateApi.AuthService.Application.Users.Commands.RegisterUser;
+using GymMateApi.AuthService.Presentation.Contracts.User;
+using GymMateApi.Shared.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

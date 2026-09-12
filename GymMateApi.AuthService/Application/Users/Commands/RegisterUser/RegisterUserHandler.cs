@@ -1,12 +1,10 @@
-﻿using GymMateApi.Application.Exceptions;
 using GymMateApi.AuthService.Core;
+using GymMateApi.AuthService.Infrastructure.Interfaces.Auth;
 using GymMateApi.AuthService.Persistance.Interfaces;
-using GymMateApi.Core.Entities;
-using GymMateApi.Infrastructure.Interfaces.Auth;
-using GymMateApi.Persistence.Interfaces;
+using GymMateApi.Shared.Exceptions;
 using MediatR;
 
-namespace GymMateApi.Application.Users.Commands.RegisterUser;
+namespace GymMateApi.AuthService.Application.Users.Commands.RegisterUser;
 
 public class RegisterUserHandler(
     IUserRepository userRepository,

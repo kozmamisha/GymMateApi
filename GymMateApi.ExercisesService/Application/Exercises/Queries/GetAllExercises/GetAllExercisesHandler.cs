@@ -1,9 +1,9 @@
-﻿using GymMateApi.Application.Dto;
-using GymMateApi.Application.Extensions;
-using GymMateApi.Persistence.Interfaces;
+using GymMateApi.ExercisesService.Application.Dto;
+using GymMateApi.ExercisesService.Application.Extensions;
+using GymMateApi.ExercisesService.Persistance.Interfaces;
 using MediatR;
 
-namespace GymMateApi.Application.Exercises.Queries.GetAllExercises;
+namespace GymMateApi.ExercisesService.Application.Exercises.Queries.GetAllExercises;
 
 public class GetAllExercisesHandler(
     IExerciseRepository exerciseRepository) : IRequestHandler<GetAllExercisesQuery, List<ExerciseDto>>

@@ -1,5 +1,5 @@
-﻿using MediatR;
+using MediatR;
 
-namespace GymMateApi.Application.Comments.Comments.UpdateComment;
+namespace GymMateApi.CommentsService.Application.Comments.Commands.UpdateComment;
 
 public record UpdateCommentCommand(Guid Id, string Text, Guid UserId) : IRequest;

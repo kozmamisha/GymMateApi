@@ -1,13 +1,12 @@
-﻿using GymMateApi.Application.Exceptions;
-using GymMateApi.Core.Entities;
-using GymMateApi.Persistence.Interfaces;
+using GymMateApi.ExercisesService.Core;
+using GymMateApi.ExercisesService.Persistance.Interfaces;
+using GymMateApi.Shared.Exceptions;
 using MediatR;
 
-namespace GymMateApi.Application.Exercises.Commands.CreateExercise;
+namespace GymMateApi.ExercisesService.Application.Exercises.Commands.CreateExercise;
 
 public class CreateExerciseHandler(
-    IExerciseRepository exerciseRepository,
-    ITrainingRepository trainingRepository) : IRequestHandler<CreateExerciseCommand>
+    IExerciseRepository exerciseRepository) : IRequestHandler<CreateExerciseCommand>
 {
     public async Task Handle(CreateExerciseCommand request, CancellationToken cancellationToken)
     {
@@ -17,8 +16,8 @@ public class CreateExerciseHandler(
         if (string.IsNullOrWhiteSpace(request.Description))
             throw new BadRequestException("Exercise description cannot be empty");
 
-        _ = await trainingRepository.GetTrainingById(request.TrainingId, cancellationToken)
-            ?? throw new EntityNotFoundException("Training not found");
+        if (request.TrainingId == Guid.Empty)
+            throw new BadRequestException("Training id cannot be empty");
 
         var exercise = new ExerciseEntity
         {

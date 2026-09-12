@@ -1,8 +1,8 @@
-﻿using GymMateApi.Application.Exceptions;
-using GymMateApi.Persistence.Interfaces;
+using GymMateApi.Shared.Exceptions;
+using GymMateApi.TrainingsService.Persistance.Interfaces;
 using MediatR;
 
-namespace GymMateApi.Application.Trainings.Commands.UpdateTraining;
+namespace GymMateApi.TrainingsService.Application.Trainings.Commands.UpdateTraining;
 
 public class UpdateTrainingHandler(
     ITrainingRepository trainingRepository) : IRequestHandler<UpdateTrainingCommand>

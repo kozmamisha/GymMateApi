@@ -1,8 +1,8 @@
-﻿using GymMateApi.Application.Exceptions;
-using GymMateApi.Persistence.Interfaces;
+using GymMateApi.CoursesService.Persistance.Interfaces;
+using GymMateApi.Shared.Exceptions;
 using MediatR;
 
-namespace GymMateApi.Application.Courses.Commands.UpdateCourse;
+namespace GymMateApi.CoursesService.Application.Courses.Commands.UpdateCourse;
 
 public class UpdateCourseHandler(
     ICourseRepository courseRepository) : IRequestHandler<UpdateCourseCommand>

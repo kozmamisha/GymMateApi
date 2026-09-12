@@ -1,8 +1,8 @@
-﻿using GymMateApi.Application.Exceptions;
-using GymMateApi.Persistence.Interfaces;
+using GymMateApi.CommentsService.Persistance.Interfaces;
+using GymMateApi.Shared.Exceptions;
 using MediatR;
 
-namespace GymMateApi.Application.Comments.Comments.UpdateComment;
+namespace GymMateApi.CommentsService.Application.Comments.Commands.UpdateComment;
 
 public class UpdateCommentHandler(
     ICommentRepository commentRepository) : IRequestHandler<UpdateCommentCommand>

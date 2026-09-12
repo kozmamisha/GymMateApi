@@ -1,13 +1,8 @@
-﻿namespace GymMateApi.Application.Dto
+namespace GymMateApi.TrainingsService.Application.Dto;
+
+public class TrainingDto
 {
-    public class TrainingDto
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-
-        public ICollection<CommentDto> Comments { get; set; } = new List<CommentDto>();
-
-        public ICollection<ExerciseDto> Exercises { get; set; } = new List<ExerciseDto>();
-    }
+    public Guid Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
 }

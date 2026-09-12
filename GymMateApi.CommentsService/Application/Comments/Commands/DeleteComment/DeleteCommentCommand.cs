@@ -1,5 +1,5 @@
-﻿using MediatR;
+using MediatR;
 
-namespace GymMateApi.Application.Comments.Comments.DeleteComment;
+namespace GymMateApi.CommentsService.Application.Comments.Commands.DeleteComment;
 
 public record DeleteCommentCommand(Guid Id, Guid UserId) : IRequest;

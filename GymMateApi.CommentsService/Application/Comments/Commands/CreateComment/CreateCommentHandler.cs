@@ -1,27 +1,26 @@
-﻿using GymMateApi.Application.Exceptions;
-using GymMateApi.Core.Entities;
-using GymMateApi.Persistence.Interfaces;
+using GymMateApi.CommentsService.Core;
+using GymMateApi.CommentsService.Persistance.Interfaces;
+using GymMateApi.Shared.Exceptions;
 using MediatR;
 
-namespace GymMateApi.Application.Comments.Comments.CreateComment;
+namespace GymMateApi.CommentsService.Application.Comments.Commands.CreateComment;
 
 public class CreateCommentHandler(
-    ICommentRepository commentRepository,
-    ITrainingRepository trainingRepository) : IRequestHandler<CreateCommentCommand>
+    ICommentRepository commentRepository) : IRequestHandler<CreateCommentCommand>
 {
     public async Task Handle(CreateCommentCommand request, CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(request.Text))
             throw new BadRequestException("Text field cannot be empty");
 
-        var training = await trainingRepository.GetTrainingById(request.TrainingId, cancellationToken)
-                       ?? throw new EntityNotFoundException("Training not found");
+        if (request.TrainingId == Guid.Empty)
+            throw new BadRequestException("Training id cannot be empty");
 
         var comment = new CommentEntity
         {
             Text = request.Text,
             AuthorId = request.UserId,
-            TrainingId = training.Id
+            TrainingId = request.TrainingId
         };
 
         await commentRepository.CreateComment(comment, cancellationToken);

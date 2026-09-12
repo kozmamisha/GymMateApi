@@ -1,5 +1,5 @@
-﻿using MediatR;
+using MediatR;
 
-namespace GymMateApi.Application.Users.Commands.DeleteUser;
+namespace GymMateApi.AuthService.Application.Users.Commands.DeleteUser;
 
 public record DeleteUserCommand(Guid Id, Guid CurrentUserId) : IRequest;

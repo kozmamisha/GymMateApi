@@ -1,5 +1,5 @@
-﻿using MediatR;
+using MediatR;
 
-namespace GymMateApi.Application.Courses.Commands.UpdateCourse;
+namespace GymMateApi.CoursesService.Application.Courses.Commands.UpdateCourse;
 
 public record UpdateCourseCommand(Guid Id, string Name) : IRequest;

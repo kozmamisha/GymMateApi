@@ -1,11 +1,9 @@
-﻿using GymMateApi.Application.Exceptions;
 using GymMateApi.AuthService.Infrastructure.Interfaces.Auth;
 using GymMateApi.AuthService.Persistance.Interfaces;
-using GymMateApi.Infrastructure.Interfaces.Auth;
-using GymMateApi.Persistence.Interfaces;
+using GymMateApi.Shared.Exceptions;
 using MediatR;
 
-namespace GymMateApi.Application.Users.Commands.LoginUser;
+namespace GymMateApi.AuthService.Application.Users.Commands.LoginUser;
 
 public class LoginUserHandler(
     IUserRepository userRepository,

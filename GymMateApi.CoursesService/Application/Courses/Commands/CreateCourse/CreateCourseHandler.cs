@@ -1,9 +1,9 @@
-﻿using GymMateApi.Application.Exceptions;
-using GymMateApi.Core.Entities;
-using GymMateApi.Persistence.Interfaces;
+using GymMateApi.CoursesService.Core;
+using GymMateApi.CoursesService.Persistance.Interfaces;
+using GymMateApi.Shared.Exceptions;
 using MediatR;
 
-namespace GymMateApi.Application.Courses.Commands.CreateCourse;
+namespace GymMateApi.CoursesService.Application.Courses.Commands.CreateCourse;
 
 public class CreateCourseHandler(
     ICourseRepository courseRepository) : IRequestHandler<CreateCourseCommand>

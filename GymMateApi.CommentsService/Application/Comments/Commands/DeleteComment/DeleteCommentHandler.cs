@@ -1,8 +1,8 @@
-﻿using GymMateApi.Application.Exceptions;
-using GymMateApi.Persistence.Interfaces;
+using GymMateApi.CommentsService.Persistance.Interfaces;
+using GymMateApi.Shared.Exceptions;
 using MediatR;
 
-namespace GymMateApi.Application.Comments.Comments.DeleteComment;
+namespace GymMateApi.CommentsService.Application.Comments.Commands.DeleteComment;
 
 public class DeleteCommentHandler(
     ICommentRepository commentRepository) : IRequestHandler<DeleteCommentCommand>

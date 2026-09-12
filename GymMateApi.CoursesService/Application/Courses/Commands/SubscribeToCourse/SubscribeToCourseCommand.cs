@@ -1,5 +1,5 @@
-﻿using MediatR;
+using MediatR;
 
-namespace GymMateApi.Application.Courses.Commands.SubscribeToCourse;
+namespace GymMateApi.CoursesService.Application.Courses.Commands.SubscribeToCourse;
 
 public record SubscribeToCourseCommand(Guid CourseId, Guid UserId) : IRequest;

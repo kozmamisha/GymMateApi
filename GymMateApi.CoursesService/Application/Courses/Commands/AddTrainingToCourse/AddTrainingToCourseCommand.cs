@@ -1,5 +1,5 @@
-﻿using MediatR;
+using MediatR;
 
-namespace GymMateApi.Application.Courses.Commands.AddTrainingToCourse;
+namespace GymMateApi.CoursesService.Application.Courses.Commands.AddTrainingToCourse;
 
 public record AddTrainingToCourseCommand(Guid CourseId, Guid TrainingId) : IRequest;

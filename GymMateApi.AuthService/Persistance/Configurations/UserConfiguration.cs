@@ -1,41 +1,28 @@
-﻿using GymMateApi.AuthService.Core;
+using GymMateApi.AuthService.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace GymMateApi.AuthService.Persistance.Configurations
+namespace GymMateApi.AuthService.Persistance.Configurations;
+
+public class UserConfiguration : IEntityTypeConfiguration<UserEntity>
 {
-    public class UserConfiguration : IEntityTypeConfiguration<UserEntity>
+    public void Configure(EntityTypeBuilder<UserEntity> builder)
     {
-        public void Configure(EntityTypeBuilder<UserEntity> builder)
-        {
-            builder.HasKey(u => u.Id);
+        builder.HasKey(u => u.Id);
 
-            builder.Property(a => a.UserName)
-                .IsRequired()
-                .HasMaxLength(50);
+        builder.Property(u => u.UserName)
+            .IsRequired()
+            .HasMaxLength(50);
 
-            builder.Property(a => a.Email)
-                .IsRequired();
+        builder.Property(u => u.Email)
+            .IsRequired();
 
-            builder.Property(a => a.PasswordHash)
-                .IsRequired()
-                .HasMaxLength(256);
+        builder.Property(u => u.PasswordHash)
+            .IsRequired()
+            .HasMaxLength(256);
 
-            builder
-                .HasMany(u => u.Comments)
-                .WithOne(c => c.Author)
-                .HasForeignKey(c => c.AuthorId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder
-                .HasOne(u => u.Course)
-                .WithMany(c => c.Subscribers)
-                .HasForeignKey(u => u.CourseId)
-                .IsRequired(false);
-            
-            builder.Property(a => a.Role)
-                .IsRequired()
-                .HasMaxLength(50);
-        }
+        builder.Property(u => u.Role)
+            .IsRequired()
+            .HasMaxLength(50);
     }
 }

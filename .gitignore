@@ -361,3 +361,20 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+# JetBrains Rider / IntelliJ
+.idea/
+*.sln.iml
+
+# EF Core / ASP.NET Core local artifacts
+*.db
+*.db-shm
+*.db-wal
+
+# Secrets (real store lives outside the repo; this is a safety net)
+secrets.json
+*.secrets.json
+
+# Local environment files for docker compose (template .env.example is tracked)
+.env
+.env.*
+!.env.example

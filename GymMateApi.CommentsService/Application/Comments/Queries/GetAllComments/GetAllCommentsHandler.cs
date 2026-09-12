@@ -1,9 +1,9 @@
-﻿using GymMateApi.Application.Dto;
-using GymMateApi.Application.Extensions;
-using GymMateApi.Persistence.Interfaces;
+using GymMateApi.CommentsService.Application.Dto;
+using GymMateApi.CommentsService.Application.Extensions;
+using GymMateApi.CommentsService.Persistance.Interfaces;
 using MediatR;
 
-namespace GymMateApi.Application.Comments.Queries.GetAllComments;
+namespace GymMateApi.CommentsService.Application.Comments.Queries.GetAllComments;
 
 public class GetAllCommentsHandler(
     ICommentRepository commentRepository) : IRequestHandler<GetAllCommentsQuery, List<CommentDto>>

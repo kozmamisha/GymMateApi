@@ -1,7 +1,7 @@
-﻿using GymMateApi.Application.Exceptions;
-using GymMateApi.Application.Users.Commands.DeleteUser;
-using GymMateApi.Core.Entities;
-using GymMateApi.Persistence.Interfaces;
+﻿using GymMateApi.Shared.Exceptions;
+using GymMateApi.AuthService.Application.Users.Commands.DeleteUser;
+using GymMateApi.AuthService.Core;
+using GymMateApi.AuthService.Persistance.Interfaces;
 using Moq;
 using Xunit;
 

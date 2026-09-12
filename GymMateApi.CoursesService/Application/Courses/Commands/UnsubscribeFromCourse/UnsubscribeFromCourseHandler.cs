@@ -1,8 +1,8 @@
-﻿using GymMateApi.Application.Exceptions;
-using GymMateApi.Persistence.Interfaces;
+using GymMateApi.CoursesService.Persistance.Interfaces;
+using GymMateApi.Shared.Exceptions;
 using MediatR;
 
-namespace GymMateApi.Application.Courses.Commands.UnsubscribeFromCourse;
+namespace GymMateApi.CoursesService.Application.Courses.Commands.UnsubscribeFromCourse;
 
 public class UnsubscribeFromCourseHandler(
     ICourseRepository courseRepository) : IRequestHandler<UnsubscribeFromCourseCommand>

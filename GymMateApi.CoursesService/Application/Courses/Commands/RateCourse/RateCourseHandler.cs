@@ -1,8 +1,8 @@
-﻿using GymMateApi.Application.Exceptions;
-using GymMateApi.Persistence.Interfaces;
+using GymMateApi.CoursesService.Persistance.Interfaces;
+using GymMateApi.Shared.Exceptions;
 using MediatR;
 
-namespace GymMateApi.Application.Courses.Commands.RateCourse;
+namespace GymMateApi.CoursesService.Application.Courses.Commands.RateCourse;
 
 public class RateCourseHandler(
     ICourseRepository courseRepository) : IRequestHandler<RateCourseCommand>
