@@ -20,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\GymMateApi.ServiceDefaults\GymMateApi.ServiceDefaults.csproj" />
         <ProjectReference Include="..\GymMateApi.Shared\GymMateApi.Shared.csproj" />
     </ItemGroup>
 

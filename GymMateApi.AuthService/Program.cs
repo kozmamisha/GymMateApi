@@ -8,6 +8,8 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddHttpContextAccessor();
@@ -18,6 +20,8 @@ builder.Services.AddAuthApplication();
 builder.Services.AddApiAuthentication(builder.Configuration);
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 

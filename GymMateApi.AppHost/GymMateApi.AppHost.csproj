@@ -1,0 +1,20 @@
+<Project Sdk="Aspire.AppHost.Sdk/13.5.3">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AspireUseCliBundle>true</AspireUseCliBundle>
+        <UserSecretsId>d678f69e-7a60-47e5-abd5-c132aaec695c</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\GymMateApi.AuthService\GymMateApi.AuthService.csproj" />
+      <ProjectReference Include="..\GymMateApi.CommentsService\GymMateApi.CommentsService.csproj" />
+      <ProjectReference Include="..\GymMateApi.CoursesService\GymMateApi.CoursesService.csproj" />
+      <ProjectReference Include="..\GymMateApi.ExercisesService\GymMateApi.ExercisesService.csproj" />
+      <ProjectReference Include="..\GymMateApi.TrainingsService\GymMateApi.TrainingsService.csproj" />
+    </ItemGroup>
+
+</Project>

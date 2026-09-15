@@ -29,6 +29,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "trainings", "trainings", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymMateApi.TrainingsService", "GymMateApi.TrainingsService\GymMateApi.TrainingsService.csproj", "{2C6D60D5-AF72-4D23-B77E-E9E1B5039EBD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymMateApi.AppHost", "GymMateApi.AppHost\GymMateApi.AppHost.csproj", "{5EBAAC53-B7C9-4E42-901E-67D0515878CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymMateApi.ServiceDefaults", "GymMateApi.ServiceDefaults\GymMateApi.ServiceDefaults.csproj", "{643A2AFE-71BE-4A85-9625-682ED0B57593}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +127,30 @@ Global
 		{2C6D60D5-AF72-4D23-B77E-E9E1B5039EBD}.Release|x64.Build.0 = Release|Any CPU
 		{2C6D60D5-AF72-4D23-B77E-E9E1B5039EBD}.Release|x86.ActiveCfg = Release|Any CPU
 		{2C6D60D5-AF72-4D23-B77E-E9E1B5039EBD}.Release|x86.Build.0 = Release|Any CPU
+		{5EBAAC53-B7C9-4E42-901E-67D0515878CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EBAAC53-B7C9-4E42-901E-67D0515878CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EBAAC53-B7C9-4E42-901E-67D0515878CD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5EBAAC53-B7C9-4E42-901E-67D0515878CD}.Debug|x64.Build.0 = Debug|Any CPU
+		{5EBAAC53-B7C9-4E42-901E-67D0515878CD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5EBAAC53-B7C9-4E42-901E-67D0515878CD}.Debug|x86.Build.0 = Debug|Any CPU
+		{5EBAAC53-B7C9-4E42-901E-67D0515878CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EBAAC53-B7C9-4E42-901E-67D0515878CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EBAAC53-B7C9-4E42-901E-67D0515878CD}.Release|x64.ActiveCfg = Release|Any CPU
+		{5EBAAC53-B7C9-4E42-901E-67D0515878CD}.Release|x64.Build.0 = Release|Any CPU
+		{5EBAAC53-B7C9-4E42-901E-67D0515878CD}.Release|x86.ActiveCfg = Release|Any CPU
+		{5EBAAC53-B7C9-4E42-901E-67D0515878CD}.Release|x86.Build.0 = Release|Any CPU
+		{643A2AFE-71BE-4A85-9625-682ED0B57593}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{643A2AFE-71BE-4A85-9625-682ED0B57593}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{643A2AFE-71BE-4A85-9625-682ED0B57593}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{643A2AFE-71BE-4A85-9625-682ED0B57593}.Debug|x64.Build.0 = Debug|Any CPU
+		{643A2AFE-71BE-4A85-9625-682ED0B57593}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{643A2AFE-71BE-4A85-9625-682ED0B57593}.Debug|x86.Build.0 = Debug|Any CPU
+		{643A2AFE-71BE-4A85-9625-682ED0B57593}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{643A2AFE-71BE-4A85-9625-682ED0B57593}.Release|Any CPU.Build.0 = Release|Any CPU
+		{643A2AFE-71BE-4A85-9625-682ED0B57593}.Release|x64.ActiveCfg = Release|Any CPU
+		{643A2AFE-71BE-4A85-9625-682ED0B57593}.Release|x64.Build.0 = Release|Any CPU
+		{643A2AFE-71BE-4A85-9625-682ED0B57593}.Release|x86.ActiveCfg = Release|Any CPU
+		{643A2AFE-71BE-4A85-9625-682ED0B57593}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
