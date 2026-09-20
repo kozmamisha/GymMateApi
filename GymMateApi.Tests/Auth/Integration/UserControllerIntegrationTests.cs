@@ -30,17 +30,7 @@ public class UserControllerIntegrationTests : IAsyncLifetime
 
         _factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
         {
-            builder.ConfigureServices(services =>
-            {
-                // Replace real DB with test-container DB
-                var descriptor =
-                    services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<AuthDbContext>));
-                if (descriptor is not null)
-                    services.Remove(descriptor);
-
-                services.AddDbContext<AuthDbContext>(opts =>
-                    opts.UseNpgsql(_postgres.GetConnectionString()));
-            });
+            builder.UseSetting("ConnectionStrings:AuthDbContext", _postgres.GetConnectionString());
 
             builder.UseSetting("JwtOptions:SecretKey",
                 "integration-test-secret-that-is-long-enough-32plus!");

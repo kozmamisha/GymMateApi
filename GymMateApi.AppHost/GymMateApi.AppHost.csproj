@@ -17,4 +17,8 @@
       <ProjectReference Include="..\GymMateApi.TrainingsService\GymMateApi.TrainingsService.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="13.5.3" />
+    </ItemGroup>
+
 </Project>

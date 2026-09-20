@@ -1,3 +1,4 @@
+using GymMateApi.ServiceDefaults;
 using GymMateApi.Shared.Extensions;
 using GymMateApi.Shared.Middlewares;
 using GymMateApi.TrainingsService.Application.Extensions;
@@ -13,7 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddTrainingsPersistence(builder.Configuration);
+builder.AddTrainingsPersistence();
 builder.Services.AddTrainingsApplication();
 builder.Services.AddApiAuthentication(builder.Configuration);
 

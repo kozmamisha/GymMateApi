@@ -1,21 +1,16 @@
 using GymMateApi.CoursesService.Persistance.Interfaces;
 using GymMateApi.CoursesService.Persistance.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace GymMateApi.CoursesService.Persistance.Extensions;
 
 public static class CoursesPersistenceExtensions
 {
-    public static IServiceCollection AddCoursesPersistence(this IServiceCollection services,
-        IConfiguration configuration)
+    public static IHostApplicationBuilder AddCoursesPersistence(this IHostApplicationBuilder builder)
     {
-        services.AddDbContext<CoursesDbContext>(options =>
-        {
-            options.UseNpgsql(configuration.GetConnectionString("CoursesDbContext"));
-        });
+        builder.AddNpgsqlDbContext<CoursesDbContext>("CoursesDbContext");
 
-        services.AddScoped<ICourseRepository, CourseRepository>();
+        builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 
-        return services;
+        return builder;
     }
 }

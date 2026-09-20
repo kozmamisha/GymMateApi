@@ -1,5 +1,6 @@
 using GymMateApi.CommentsService.Application.Extensions;
 using GymMateApi.CommentsService.Persistance.Extensions;
+using GymMateApi.ServiceDefaults;
 using GymMateApi.Shared.Extensions;
 using GymMateApi.Shared.Middlewares;
 using Microsoft.AspNetCore.CookiePolicy;
@@ -13,7 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddCommentsPersistence(builder.Configuration);
+builder.AddCommentsPersistence();
 builder.Services.AddCommentsApplication();
 builder.Services.AddApiAuthentication(builder.Configuration);
 

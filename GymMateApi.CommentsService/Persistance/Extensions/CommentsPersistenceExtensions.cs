@@ -1,21 +1,16 @@
 using GymMateApi.CommentsService.Persistance.Interfaces;
 using GymMateApi.CommentsService.Persistance.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace GymMateApi.CommentsService.Persistance.Extensions;
 
 public static class CommentsPersistenceExtensions
 {
-    public static IServiceCollection AddCommentsPersistence(this IServiceCollection services,
-        IConfiguration configuration)
+    public static IHostApplicationBuilder AddCommentsPersistence(this IHostApplicationBuilder builder)
     {
-        services.AddDbContext<CommentsDbContext>(options =>
-        {
-            options.UseNpgsql(configuration.GetConnectionString("CommentsDbContext"));
-        });
+        builder.AddNpgsqlDbContext<CommentsDbContext>("CommentsDbContext");
 
-        services.AddScoped<ICommentRepository, CommentRepository>();
+        builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
-        return services;
+        return builder;
     }
 }

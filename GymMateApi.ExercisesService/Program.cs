@@ -1,5 +1,6 @@
 using GymMateApi.ExercisesService.Application.Extensions;
 using GymMateApi.ExercisesService.Persistance.Extensions;
+using GymMateApi.ServiceDefaults;
 using GymMateApi.Shared.Extensions;
 using GymMateApi.Shared.Middlewares;
 using Microsoft.AspNetCore.CookiePolicy;
@@ -13,7 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddExercisesPersistence(builder.Configuration);
+builder.AddExercisesPersistence();
 builder.Services.AddExercisesApplication();
 builder.Services.AddApiAuthentication(builder.Configuration);
 

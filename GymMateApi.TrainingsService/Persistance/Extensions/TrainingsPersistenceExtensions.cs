@@ -1,21 +1,16 @@
 using GymMateApi.TrainingsService.Persistance.Interfaces;
 using GymMateApi.TrainingsService.Persistance.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace GymMateApi.TrainingsService.Persistance.Extensions;
 
 public static class TrainingsPersistenceExtensions
 {
-    public static IServiceCollection AddTrainingsPersistence(this IServiceCollection services,
-        IConfiguration configuration)
+    public static IHostApplicationBuilder AddTrainingsPersistence(this IHostApplicationBuilder builder)
     {
-        services.AddDbContext<TrainingsDbContext>(options =>
-        {
-            options.UseNpgsql(configuration.GetConnectionString("TrainingsDbContext"));
-        });
+        builder.AddNpgsqlDbContext<TrainingsDbContext>("TrainingsDbContext");
 
-        services.AddScoped<ITrainingRepository, TrainingRepository>();
+        builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
 
-        return services;
+        return builder;
     }
 }
