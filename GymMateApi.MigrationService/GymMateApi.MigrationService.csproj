@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-GymMateApi.MigrationService-29f025fd-b9fa-4b83-a61c-7e597f0c9472</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.5.3" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GymMateApi.AuthService\GymMateApi.AuthService.csproj" />
+    <ProjectReference Include="..\GymMateApi.CommentsService\GymMateApi.CommentsService.csproj" />
+    <ProjectReference Include="..\GymMateApi.CoursesService\GymMateApi.CoursesService.csproj" />
+    <ProjectReference Include="..\GymMateApi.ExercisesService\GymMateApi.ExercisesService.csproj" />
+    <ProjectReference Include="..\GymMateApi.TrainingsService\GymMateApi.TrainingsService.csproj" />
+    <ProjectReference Include="..\GymMateApi.ServiceDefaults\GymMateApi.ServiceDefaults.csproj" />
+  </ItemGroup>
+</Project>

@@ -13,29 +13,37 @@ var coursesDb = postgres.AddDatabase("CoursesDbContext", "gymMate_courses");
 var exercisesDb = postgres.AddDatabase("ExercisesDbContext", "gymMate_exercises");
 var trainingsDb = postgres.AddDatabase("TrainingsDbContext", "gymMate_trainings");
 
+var migrations = builder.AddProject<Projects.GymMateApi_MigrationService>("migrations")
+    .WithReference(authDb)
+    .WithReference(commentsDb)
+    .WithReference(coursesDb)
+    .WithReference(exercisesDb)
+    .WithReference(trainingsDb)
+    .WaitFor(postgres);
+
 builder.AddProject<Projects.GymMateApi_AuthService>("auth")
     .WithReference(authDb)
-    .WaitFor(authDb)
+    .WaitForCompletion(migrations)
     .WithEnvironment("JwtOptions__SecretKey", jwtSecret);
 
 builder.AddProject<Projects.GymMateApi_CommentsService>("comments")
     .WithReference(commentsDb)
-    .WaitFor(commentsDb)
+    .WaitForCompletion(migrations)
     .WithEnvironment("JwtOptions__SecretKey", jwtSecret);
 
 builder.AddProject<Projects.GymMateApi_CoursesService>("courses")
     .WithReference(coursesDb)
-    .WaitFor(coursesDb)
+    .WaitForCompletion(migrations)
     .WithEnvironment("JwtOptions__SecretKey", jwtSecret);
 
 builder.AddProject<Projects.GymMateApi_ExercisesService>("exercises")
     .WithReference(exercisesDb)
-    .WaitFor(exercisesDb)
+    .WaitForCompletion(migrations)
     .WithEnvironment("JwtOptions__SecretKey", jwtSecret);
 
 builder.AddProject<Projects.GymMateApi_TrainingsService>("trainings")
     .WithReference(trainingsDb)
-    .WaitFor(trainingsDb)
+    .WaitForCompletion(migrations)
     .WithEnvironment("JwtOptions__SecretKey", jwtSecret);
 
 builder.Build().Run();
